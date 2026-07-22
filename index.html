@@ -159,7 +159,7 @@
       margin-top: 1.25rem;
       font-family: "Changan Uni Type KZ", "Segoe UI", Arial, sans-serif;
       font-weight: 700;
-      font-size: 48px;
+      font-size: clamp(2rem, 8vw, 48px);
       line-height: 1.2;
       letter-spacing: 1.52px;
       text-transform: uppercase;
@@ -324,6 +324,7 @@
     .row .l span { color: var(--muted); }
     .day-photos { display: grid; gap: 1rem; margin-top: 2rem; }
     .day-photos.two { grid-template-columns: 1fr 1fr; }
+    @media (max-width: 767px) { .day-photos.two { grid-template-columns: 1fr; } }
     .day-photos figure { border: 1px solid var(--hairline); padding: 6px; }
     .day-photos img { width: 100%; height: 11rem; object-fit: cover; }
     @media (min-width: 768px) { .day-photos img { height: 14rem; } }
@@ -439,7 +440,7 @@
       margin-top: 1rem; 
       font-family: "NotoSans Condensed";
       font-weight: 700; 
-      font-size: 48px;
+      font-size: clamp(2rem, 8vw, 48px);
       line-height: 60px;
       letter-spacing: -1.2px;
     }
@@ -447,7 +448,7 @@
     .reg-head p b { color: var(--gold); font-weight: 600; }
     .reg-head .kicker { color: #C6A15B; }
     form { margin-top: 3.5rem; display: flex; flex-direction: column; gap: 2rem; }
-    .grid2 { display: grid; gap: 2rem; }
+    .grid2 { display: grid; grid-template-columns: 1fr; gap: 2rem; }
     @media (min-width: 640px) { .grid2 { grid-template-columns: 1fr 1fr; } }
     .participant-block { padding-top: 1.75rem; margin-top: 1.75rem; border-top: 1px solid var(--hairline); }
     .participant-block:first-child { border-top: 0; margin-top: 0; padding-top: 0; }
