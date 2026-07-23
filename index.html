@@ -113,7 +113,8 @@
     @media (min-width: 768px) { .nav-inner { padding: 0 2.5rem; } }
     .brand { display: inline-flex; align-items: center; font-weight: 600; letter-spacing: .42em; text-transform: uppercase; gap: .75rem; }
     .brand img { display: block; height: 1.15rem; width: auto; }
-    .brand img.secondary { height: 0.6rem; }
+      .brand img { height: 0.95rem; }
+      .brand img.secondary { height: 0.6rem; }
     .brand-divider {
       display: inline-block;
       width: 1px;
@@ -600,7 +601,7 @@
     @media (max-width: 767px) {
       .hero { height: auto; }
       .hero-stage { height: 100svh; }
-      .hero-text { position: absolute; top: 5rem; left: 0; right: 0; padding: 0 1.25rem; }
+      .hero-text { position: absolute; top: 35%; left: 0; right: 0; transform: translateY(-50%); padding: 0 1.25rem; }
       .hero-text h1 { font-size: clamp(1.75rem, 7vw, 2.5rem); letter-spacing: 1px; }
       .hero-meta { font-size: .7rem; letter-spacing: .14em; }
       .hero-cta { padding: .6rem 1.25rem; font-size: 11px; width: 100%; }
@@ -608,7 +609,9 @@
       
       .nav-links { display: none; }
       .viewfinder { padding: .5rem .75rem; font-size: 10px; letter-spacing: 1px; }
-      .nav-inner { height: 56px; }
+      .nav-inner { height: 56px; gap: 1.25rem; }
+      .brand img { height: 0.9rem; }
+      .brand img.secondary { height: 0.5rem; }
       
       .section-pad { padding: 4rem 0; }
       
