@@ -971,8 +971,42 @@
       <form id="regForm" novalidate>
         <div class="grid2">
           <label class="f"><span>Компания <i>*</i></span>
-            <input class="field" name="company" autocomplete="organization" />
-            <em class="field-error">Укажите компанию</em>
+            <select class="field" name="company">
+              <option value="">Выберите компанию</option>
+              <option value="Changan ABS">Changan ABS</option>
+              <option value="Changan Kuldzhinka">Changan Kuldzhinka</option>
+              <option value="Changan Mycar">Changan Mycar</option>
+              <option value="Changan Nurly Zhol">Changan Nurly Zhol</option>
+              <option value="Changan Terra">Changan Terra</option>
+              <option value="Changan VM Premium (Астана)">Changan VM Premium (Астана)</option>
+              <option value="Changan Crystal">Changan Crystal</option>
+              <option value="Changan UKA">Changan UKA</option>
+              <option value="Changan E-motion">Changan E-motion</option>
+              <option value="Changan Prime">Changan Prime</option>
+              <option value="Changan Zhayik (Алматы)">Changan Zhayik (Алматы)</option>
+              <option value="Changan Mycar">Changan Mycar</option>
+              <option value="Changan Jezqazgan">Changan Jezqazgan</option>
+              <option value="Changan Zhayik (Актобе)">Changan Zhayik (Актобе)</option>
+              <option value="Changan VM Premium (Алматы)">Changan VM Premium (Алматы)</option>
+              <option value="Changan Bahus">Changan Bahus</option>
+              <option value="Changan Aster (Шымкент)">Changan Aster (Шымкент)</option>
+              <option value="Changan Nomadcar (Тараз)">Changan Nomadcar (Тараз)</option>
+              <option value="Changan Orbis Auto (Алматы)">Changan Orbis Auto (Алматы)</option>
+              <option value="Changan Aster (Астана)">Changan Aster (Астана)</option>
+              <option value="Changan Aster (Бесагаш)">Changan Aster (Бесагаш)</option>
+              <option value="Changan Luxcar (Алматы)">Changan Luxcar (Алматы)</option>
+              <option value="Changan Luxcar (Шымкент)">Changan Luxcar (Шымкент)</option>
+              <option value="Changan Nomadcar (Шымкент)">Changan Nomadcar (Шымкент)</option>
+              <option value="Changan Pirim">Changan Pirim</option>
+              <option value="Changan Autodom">Changan Autodom</option>
+              <option value="Changan Irtysh">Changan Irtysh</option>
+              <option value="Changan Orbis (Атырау)">Changan Orbis (Атырау)</option>
+              <option value="Changan Aster (Уральск)">Changan Aster (Уральск)</option>
+              <option value="Changan Q4 Tulpar">Changan Q4 Tulpar</option>
+              <option value="Changan Aster (Талдыкорган)">Changan Aster (Талдыкорган)</option>
+              <option value="Changan Aster (Петропавловск)">Changan Aster (Петропавловск)</option>
+            </select>
+            <em class="field-error">Выберите компанию</em>
           </label>
           <label class="f"><span>Количество участников <i>*</i></span>
             <select class="field" name="participantsCount" id="participantsCount">
@@ -1234,7 +1268,7 @@
         var f = form.elements;
         var ok = true;
 
-        var badCompany = !f.company.value.trim();
+        var badCompany = !f.company.value;
         setErr(f.company, badCompany); if (badCompany) ok = false;
 
         var participants = readParticipants();
@@ -1262,7 +1296,7 @@
         label.textContent = "Отправляем...";
         var payload = {
           timestamp: new Date().toISOString(),
-          company: f.company.value.trim(),
+          company: f.company.value,
           participants: participants,
           city: f.city.value.trim(),
           transfer: f.transfer.value,
