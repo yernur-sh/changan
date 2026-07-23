@@ -26,22 +26,36 @@
     }
     @font-face {
       font-family: "Changan Uni Type KZ";
+      src: url("assets/changanunitypekz-Regular.ttf") format("truetype");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "Changan Uni Type KZ";
       src: url("assets/changanunitypekz-Bold.ttf") format("truetype");
       font-weight: 700;
       font-style: normal;
       font-display: swap;
     }
     @font-face {
-      font-family: "NotoSans Condensed";
-      src: url("assets/NotoSans_Condensed-Bold.ttf") format("truetype");
+      font-family: "NotoSans";
+      src: url("assets/NotoSans-Light.ttf") format("truetype");
+      font-weight: 200;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "NotoSans";
+      src: url("assets/NotoSans-Bold.ttf") format("truetype");
       font-weight: 700;
       font-style: normal;
       font-display: swap;
     }
     @font-face {
-      font-family: "NotoSans Condensed";
-      src: url("assets/NotoSans_Condensed-ExtraLight.ttf") format("truetype");
-      font-weight: 200;
+      font-family: "NotoSans";
+      src: url("assets/NotoSans-Regular.ttf") format("truetype");
+      font-weight: 400;
       font-style: normal;
       font-display: swap;
     }
@@ -226,16 +240,42 @@
     .inv-lead { max-width: 52rem; }
     .inv-lead { max-width: none; }
     .inv-lead h2 {
-      font-family: "NotoSans Condensed", var(--display);
+      font-family: "NotoSans", var(--display);
       font-weight: 700;
-      font-size: clamp(2.5rem, 6vw, 3.75rem);
+      font-size: clamp(2.25rem, 6vw, 3.25rem);
       text-transform: uppercase;
       letter-spacing: 1.52px;
     }
+    .inv-title-wrap {
+      width: fit-content;
+      max-width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      margin-left: auto;
+      margin-right: auto;
+    }
     @media (min-width: 768px) { .inv-lead { padding-right: 0; } }
-    .inv-orn-top { display: flex; align-items: center; justify-content: center; gap: .9rem; margin-bottom: 1rem; margin-top: 1rem; }
-    .inv-orn-top .l { height: 1px; width: 21rem; background: rgba(198,161,91,.7); }
-    .inv-orn-top .d { width: 6px; height: 6px; background: rgba(198,161,91,.7); transform: rotate(45deg); flex-shrink: 0; }
+    .inv-orn-top {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .9rem;
+      margin-bottom: 1rem;
+      margin-top: 1rem;
+    }
+    .inv-orn-top .l {
+      flex: 1;
+      height: 1px;
+      background: rgba(198,161,91,.7);
+    }
+    .inv-orn-top .d {
+      width: 6px;
+      height: 6px;
+      background: rgba(198,161,91,.7);
+      transform: rotate(45deg);
+      flex-shrink: 0;
+    }
     .inv-orn { display: flex; align-items: center; justify-content: center; gap: .75rem; margin-top: 1.5rem; margin-bottom: 2rem; }
     .inv-orn .l { height: 1px; width: 6rem; background: rgba(198,161,91,.7); }
     .inv-orn .d { width: 6px; height: 6px; background: rgba(198,161,91,.7); transform: rotate(45deg); }
@@ -245,7 +285,7 @@
       margin-left: auto;
       margin-right: auto;
       color: #ffffff;
-      font-family: "NotoSans Condensed", var(--body);
+      font-family: "NotoSans", var(--body);
       font-weight: 200;
       font-size: 1.05rem;
       letter-spacing: .5px;
@@ -284,10 +324,9 @@
     /* Program */
     .program { background: var(--panel2); }
     .program h2 {
-      font-family: "NotoSans Condensed", var(--display);
+      font-family: "NotoSans", var(--display);
       font-weight: 600;
       font-size: clamp(2.25rem, 5vw, 3rem);
-      text-transform: uppercase;
       letter-spacing: 1.5px;
     }
     .program-sub { margin-top: 1.25rem; max-width: 52ch; color: var(--muted); }
@@ -303,7 +342,7 @@
     }
     .day-cap {
       margin-top: .5rem;
-      font-family: "NotoSans Condensed", var(--mono);
+      font-family: "NotoSans", var(--mono);
       font-weight: 200;
       font-size: .7rem;
       letter-spacing: .34em; text-transform: uppercase; color: var(--muted);
@@ -340,10 +379,9 @@
     }
     .transport-content > p { margin-top: 1.5rem; max-width: 48ch; color: var(--muted); }
     .transport-content h2 {
-      font-family: "NotoSans Condensed", var(--display);
+      font-family: "NotoSans", var(--display);
       font-weight: 700;
       font-size: clamp(2.25rem, 5vw, 3rem);
-      text-transform: uppercase;
       letter-spacing: 1.5px;
     }
     .route { margin-top: 2.5rem; }
@@ -356,11 +394,11 @@
     }
     .route-line { display: flex; align-items: center; gap: 1rem; margin-top: 1rem; font-size: .95rem; }
     .route-dest {
-      font-family: "NotoSans Condensed", var(--body);
+      font-family: "NotoSans", var(--body);
       font-weight: 700;
     }
     .route-line > span:not([class]) {
-      font-family: "NotoSans Condensed", var(--body) !important;
+      font-family: "NotoSans", var(--body) !important;
       font-weight: 700 !important;
     }
     .route-line .dot { font-family: inherit; }
@@ -389,15 +427,38 @@
       position: absolute; inset: 0; pointer-events: none;
       background: linear-gradient(to top, rgba(8,21,34,.7), transparent 40%, rgba(8,21,34,.4));
     }
-    .marker { position: absolute; left: 58%; top: 52%; }
+    .marker {
+      position: absolute;
+      left: 58%;
+      top: 52%;
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+    }
     .marker .core {
-      display: block; width: 12px; height: 12px; border-radius: 50%;
-      background: var(--gold); box-shadow: 0 0 18px 4px rgba(198,161,91,.55);
+      display: block;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 18px 4px rgba(198,161,91,.55);
+      position: relative;
+      z-index: 1;
     }
     .marker .ring {
-      position: absolute; inset: -8px; border-radius: 50%;
+      position: absolute;
+      inset: -8px;
+      border-radius: 50%;
       border: 1px solid rgba(198,161,91,.7);
       animation: pulse 2.4s ease-out infinite;
+    }
+    .marker-label {
+      font-family: "Changan Uni Type KZ", var(--body);
+      font-weight: 400;
+      font-size: 1rem;
+      color: #ffffff;
+      white-space: nowrap;
+      text-shadow: 0 1px 3px rgba(0,0,0,.8);
     }
     @keyframes pulse { 0% { transform: scale(1); opacity: .9; } 100% { transform: scale(2.6); opacity: 0; } }
     .venue-card {
@@ -415,7 +476,7 @@
     }
     .venue-card h2 {
       margin-top: 1rem;
-      font-family: "NotoSans Condensed", var(--display);
+      font-family: "NotoSans", var(--display);
       font-weight: 700;
       font-size: clamp(1.875rem, 3vw, 2.25rem);
       line-height: 1.25;
@@ -438,7 +499,7 @@
     .reg-head { text-align: center; }
     .reg-head h2 { 
       margin-top: 1rem; 
-      font-family: "NotoSans Condensed";
+      font-family: "NotoSans";
       font-weight: 700; 
       font-size: clamp(2rem, 8vw, 48px);
       line-height: 60px;
@@ -446,7 +507,7 @@
     }
     .reg-head p { margin-top: 1.25rem; font-size: .875rem; color: var(--muted); }
     .reg-head p b { color: var(--gold); font-weight: 600; }
-    .reg-head .kicker { color: #C6A15B; }
+    .reg-head .kicker { color: #C6A15B; font-family: "NotoSans"; font-weight: 400; }
     form { margin-top: 3.5rem; display: flex; flex-direction: column; gap: 2rem; }
     .grid2 { display: grid; grid-template-columns: 1fr; gap: 2rem; }
     @media (min-width: 640px) { .grid2 { grid-template-columns: 1fr 1fr; } }
@@ -515,7 +576,7 @@
     .success .mark { font-family: var(--display); font-size: 3rem; color: var(--gold); }
     .success h2 {
       margin-top: 2rem;
-      font-family: "NotoSans Condensed", var(--display);
+      font-family: "NotoSans", var(--display);
       font-weight: 700;
     }
     .success .horizon { width: 10rem; margin: 2rem auto; }
@@ -551,9 +612,8 @@
       
       .section-pad { padding: 4rem 0; }
       
-      .inv-orn-top .l { width: 6rem; }
       .inv-orn-top { margin-top: .75rem; }
-      .inv-lead h2 { font-size: clamp(1.75rem, 7vw, 2.5rem); }
+      .inv-lead h2 { font-size: clamp(1.6rem, 7vw, 2.2rem); }
       .inv-lead p { font-size: .95rem; }
       .inv-rail { gap: 1.25rem; }
       .fact dd { font-size: 1.05rem; }
@@ -606,6 +666,82 @@
         transition-duration: .01ms !important;
       }
     }
+
+    .day-carousel {
+      position: relative;
+      width: 100%;
+      max-width: 28rem;
+      overflow: hidden;
+      border-radius: 12px;
+      margin-top: 1rem;
+    }
+    .carousel-track {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+    .carousel-slide {
+      min-width: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    .carousel-slide img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      display: block;
+    }
+    .day-carousel .day-photos {
+      width: 100%;
+      margin-top: 0;
+    }
+    .day-carousel .day-photos figure {
+      border: 0;
+      padding: 0;
+      margin: 0;
+    }
+    .slide-caption {
+      padding: .5rem .75rem;
+      background: var(--panel2);
+      color: var(--muted);
+      font-size: .75rem;
+      text-align: left;
+    }
+    .carousel-btn {
+      position: absolute;
+      top: 35%;
+      transform: translateY(-50%);
+      background: rgba(8,21,34,.6);
+      color: var(--ink);
+      border: 0;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.25rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .3s ease;
+    }
+    .carousel-btn:hover { background: rgba(8,21,34,.85); }
+    .carousel-btn--prev { left: .5rem; }
+    .carousel-btn--next { right: .5rem; }
+    .dots {
+      position: absolute;
+      bottom: .75rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: .5rem;
+    }
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.4);
+      cursor: pointer;
+    }
+    .dot.active { background: #fff; }
   </style>
 </head>
 <body>
@@ -656,8 +792,10 @@
     <div class="wrap">
       <div class="inv-grid">
         <div class="inv-lead">
-          <h2>Уважаемые партнеры!</h2>
-          <div class="inv-orn-top"><span class="l"></span><span class="d"></span><span class="l"></span></div>
+          <div class="inv-title-wrap">
+            <h2>Уважаемые партнеры!</h2>
+            <div class="inv-orn-top"><span class="l"></span><span class="d"></span><span class="l"></span></div>
+          </div>
 
           <p>Приглашаем вас на ежегодную Летнюю дилерскую конференцию Changan Kazakhstan:
              два дня деловой программы, общения, командных активностей и отдыха на берегу
@@ -693,9 +831,29 @@
           <div class="row"><span class="t">16:00-18:00</span><span class="l">Воркшопы</span></div>
           <div class="row"><span class="t">18:00-19:00</span><span class="l">Свободное время</span></div>
           <div class="row"><span class="t">19:40-24:00</span><span class="l">Гала-ужин</span></div>
-          <div class="day-photos">
-            <figure><img loading="lazy" src="assets/suret1.jpg" alt="Конференц-зал с видом на Каспийское море" /></figure>
-          </div>
+            <div class="day-carousel" id="carousel">
+              <button class="carousel-btn carousel-btn--prev" aria-label="Предыдущее">‹</button>
+              <div class="carousel-track">
+                <div class="carousel-slide">
+                  <figure><img loading="lazy" src="assets/1.png" alt="Зал Мангыстау" /></figure>
+                  <p class="slide-caption">1) Зал “Мангыстау”- Маркетинг</p>
+                </div>
+                <div class="carousel-slide">
+                  <figure><img loading="lazy" src="assets/2.png" alt="Зал Алматы" /></figure>
+                  <p class="slide-caption">2)Зал “Алматы”-Продаж</p>
+                </div>
+                <div class="carousel-slide">
+                  <figure><img loading="lazy" src="assets/3.png" alt="Зал Астана" /></figure>
+                  <p class="slide-caption">3)Зал “Астана”- Сервис</p>
+                </div>
+                <div class="carousel-slide">
+                  <figure><img loading="lazy" src="assets/4.png" alt="Зал Бурабай" /></figure>
+                  <p class="slide-caption">4)Зал “Бурабай” - СПК</p>
+                </div>
+              </div>
+              <button class="carousel-btn carousel-btn--next" aria-label="Следующее">›</button>
+              <div class="dots" id="dots20"></div>
+            </div>
         </div>
       </article>
 
@@ -776,6 +934,7 @@
       <div class="venue-scrim"></div>
       <a class="marker" href="https://go.2gis.com/Rgwqq" target="_blank" rel="noreferrer" aria-label="Rixos Water World Aktau на карте 2ГИС">
         <span class="ring"></span><span class="core"></span>
+        <span class="marker-label">RIXOS WATER <br>WORLD AKTAU</span>
       </a>
       <div class="venue-card">
         <p class="label">Место проведения</p>
@@ -1125,6 +1284,41 @@
           label.textContent = "Отправить заявку";
         });
       });
+    })();
+
+    (function () {
+      var carousel = document.getElementById("carousel");
+      if (!carousel) return;
+      var track = carousel.querySelector(".carousel-track");
+      var slides = carousel.querySelectorAll(".carousel-slide");
+      var dotsContainer = carousel.querySelector(".dots");
+      var prevBtn = carousel.querySelector(".carousel-btn--prev");
+      var nextBtn = carousel.querySelector(".carousel-btn--next");
+      var index = 19;
+
+      slides.forEach(function (_, i) {
+        var dot = document.createElement("div");
+        dot.className = "dot" + (i === 0 ? " active" : "");
+        dot.addEventListener("click", function () { goTo(i); });
+        dotsContainer.appendChild(dot);
+      });
+
+      function update() {
+        track.style.transform = "translateX(-" + (index * 100) + "%)";
+        carousel.querySelectorAll(".dot").forEach(function (d, i) {
+          d.classList.toggle("active", i === index);
+        });
+      }
+
+      function goTo(i) {
+        index = (i + slides.length) % slides.length;
+        update();
+      }
+
+      if (nextBtn) nextBtn.addEventListener("click", function () { goTo(index + 1); });
+      if (prevBtn) prevBtn.addEventListener("click", function () { goTo(index - 1); });
+
+      setInterval(function () { goTo(index + 1); }, 5000);
     })();
   </script>
 </body>
