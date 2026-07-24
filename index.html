@@ -145,6 +145,17 @@
     .viewfinder::before, .viewfinder::after { display: none; }
     .nav .horizon { opacity: 0; transition: opacity .5s ease; }
     .nav.scrolled .horizon { opacity: 1; }
+    .nav-lang { display: none; align-items: center; gap: .4rem; }
+    @media (min-width: 768px) { .nav-lang { display: flex; } }
+    .nav-lang-btn {
+      background: transparent; border: 0; color: var(--muted);
+      font-family: var(--body); font-weight: 600; font-size: .7rem;
+      letter-spacing: .08em; text-transform: uppercase; cursor: pointer;
+      padding: .2rem .3rem; border-radius: 2px;
+      transition: color .3s ease;
+    }
+    .nav-lang-btn:hover { color: var(--ink); }
+    .nav-lang-btn.active { color: var(--gold); }
 
     /* ---------- Hero ---------- */
     .hero { position: relative; height: 135dvh; }
@@ -371,7 +382,7 @@
     .day-photos figure { border: 1px solid var(--hairline); padding: 6px; }
     .day-photos img { width: 100%; height: 11rem; object-fit: cover; }
     @media (min-width: 768px) { .day-photos img { height: 14rem; } }
-    .day-note { margin-top: 2rem; border-top: 1px solid rgba(198,161,91,.3); padding-top: 1.5rem; font-size: .875rem; color: var(--muted); }
+    .day-note { margin-top: 2rem; border-top: 1px solid rgba(198,161,91,.3); padding-top: 1.5rem; font-size: 1rem; color: var(--muted); }
     .day-note b { color: var(--gold); font-weight: 600; }
 
     /* Transport */
@@ -750,9 +761,62 @@
       cursor: pointer;
     }
     .dot.active { background: #fff; }
+
+    /* ===== Language Selector ===== */
+    .lang-overlay {
+      position: fixed; inset: 0; z-index: 9999;
+      background: var(--night);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 2rem;
+      transition: opacity .5s ease, visibility .5s ease;
+    }
+    .lang-overlay.hidden {
+      opacity: 0; visibility: hidden; pointer-events: none;
+    }
+    .lang-overlay h2 {
+      font-family: "NotoSans", var(--display);
+      font-weight: 600;
+      font-size: clamp(1.5rem, 4vw, 2.25rem);
+      letter-spacing: 1.5px;
+      color: var(--ink);
+      text-transform: uppercase;
+    }
+    .lang-btns {
+      display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center;
+    }
+    .lang-btn {
+      padding: .75rem 2rem;
+      background: transparent;
+      border: 1px solid var(--hairline);
+      border-radius: 2px;
+      color: var(--ink);
+      font-family: var(--body);
+      font-weight: 600;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all .3s ease;
+    }
+    .lang-btn:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(198,161,91,.08);
+    }
   </style>
 </head>
 <body>
+
+  <!-- ===== Language Selector ===== -->
+  <div class="lang-overlay" id="langOverlay">
+    <h2>Select language / Тілді таңдаңыз / Выберите язык</h2>
+    <div class="lang-btns">
+      <button class="lang-btn" data-lang="ru">Русский</button>
+      <button class="lang-btn" data-lang="kz">Қазақша</button>
+      <button class="lang-btn" data-lang="en">English</button>
+    </div>
+  </div>
 
   <!-- ===== Nav ===== -->
   <header class="nav" id="nav">
@@ -763,12 +827,17 @@
         <img class="secondary" src="assets/Vector2.svg" alt="Changan" />
       </a>
       <nav class="nav-links">
-        <a href="#about">О конференции</a>
-        <a href="#program">Программа</a>
-        <a href="#transport">Трансфер</a>
-        <a href="#venue">Место</a>
+        <a href="#about" data-i18n="nav.about">О конференции</a>
+        <a href="#program" data-i18n="nav.program">Программа</a>
+        <a href="#transport" data-i18n="nav.transport">Трансфер</a>
+        <a href="#venue" data-i18n="nav.venue">Место</a>
       </nav>
-      <a href="#registration" class="viewfinder">Подтвердить участие</a>
+      <div class="nav-lang">
+        <button class="nav-lang-btn" data-lang="ru">RU</button>
+        <button class="nav-lang-btn" data-lang="kz">KZ</button>
+        <button class="nav-lang-btn" data-lang="en">EN</button>
+      </div>
+      <a href="#registration" class="viewfinder" data-i18n="nav.cta">Подтвердить участие</a>
     </div>
     <div class="horizon"></div>
   </header>
@@ -778,16 +847,16 @@
     <div class="hero-stage">
       <img id="heroImg" class="hero-img" fetchpriority="high"
         src="assets/fon.png"
-        alt="Rixos Water World Aktau на берегу Каспийского моря ночью" />
+        alt="Rixos Water World Aktau" data-i18n-alt="hero.img_alt" />
       <div class="hero-scrim-b"></div>
       <div class="hero-scrim-t"></div>
       <div class="hero-text">
         <div class="wrap">
 
-          <h1 class="rise" style="animation-delay:.25s">Summer Dealer<br />Conference 2026</h1>
-          <p class="hero-meta rise" style="animation-delay:.4s">20-22 августа 2026 · Rixos Water World Aktau · г. Актау</p>
+          <h1 class="rise" style="animation-delay:.25s" data-i18n="hero.title">Summer Dealer<br />Conference 2026</h1>
+          <p class="hero-meta rise" style="animation-delay:.4s" data-i18n="hero.meta">20-22 августа 2026 · Rixos Water World Aktau · г. Актау</p>
           <a href="#registration" class="hero-cta rise" style="animation-delay:.55s">
-            <span class="line1">Подтвердить участие <span class="arrow">→</span></span>
+            <span class="line1" data-i18n="hero.cta">Подтвердить участие <span class="arrow">→</span></span>
             <span class="underline"><i></i></span>
           </a>
         </div>
@@ -801,21 +870,21 @@
       <div class="inv-grid">
         <div class="inv-lead">
           <div class="inv-title-wrap">
-            <h2>Уважаемые партнеры!</h2>
+            <h2 data-i18n="inv.greeting">Уважаемые партнеры!</h2>
             <div class="inv-orn-top"><span class="l"></span><span class="d"></span><span class="l"></span></div>
           </div>
 
-          <p><span class="inv-lead-main">Приглашаем вас на ежегодную Летнюю дилерскую конференцию Changan Kazakhstan:</span>
-             два дня деловой программы, общения, командных активностей и отдыха на берегу
-             Каспийского моря.</p>
-          <p class="inv-dress"><b>Дресс-код:</b> Cocktail (коктейльный). Для мужчин: деловой костюм или пиджак с брюками.</p>
-          <p>Будем рады видеть вас среди участников Summer Dealer Conference 2026.</p>
+          <p><span class="inv-lead-main" data-i18n="inv.lead_main">Приглашаем вас на ежегодную Летнюю дилерскую конференцию Changan Kazakhstan:</span>
+             <span data-i18n="inv.lead_sub">два дня деловой программы, общения, командных активностей и отдыха на берегу
+             Каспийского моря.</span></p>
+          <p class="inv-dress" data-i18n="inv.dress"><b>Дресс-код:</b> Cocktail (коктейльный). Для мужчин: деловой костюм или пиджак с брюками.</p>
+          <p data-i18n="inv.lead_end">Будем рады видеть вас среди участников Summer Dealer Conference 2026.</p>
         </div>
         <div class="inv-divider"></div>
         <dl class="inv-rail">
-          <div class="fact"><dt>Дата</dt><dd>20-22.08.2026</dd></div>
-          <div class="fact"><dt>Начало конференции</dt><dd>20 августа, 14:30</dd></div>
-          <div class="fact"><dt>Место</dt><dd>Rixos Water World Aktau<br />Банкетный зал «Мангыстау»</dd></div>
+          <div class="fact"><dt data-i18n="inv.date_label">Дата</dt><dd data-i18n="inv.date_value">20-22.08.2026</dd></div>
+          <div class="fact"><dt data-i18n="inv.start_label">Начало конференции</dt><dd data-i18n="inv.start_value">20 августа, 14:30</dd></div>
+          <div class="fact"><dt data-i18n="inv.venue_label">Место</dt><dd data-i18n="inv.venue_value">Rixos Water World Aktau<br />Банкетный зал «Мангыстау»</dd></div>
         </dl>
       </div>
     </div>
@@ -825,42 +894,42 @@
   <section id="program" class="program">
     <div class="horizon"></div>
     <div class="wrap section-pad">
-      <h2>Программа мероприятия</h2>
+      <h2 data-i18n="prog.title">Программа мероприятия</h2>
 
 
       <article class="day">
         <div class="day-side">
           <p class="day-num">20</p>
-          <p class="day-cap">августа · день 1</p>
+          <p class="day-cap" data-i18n="prog.day1_cap">августа · день 1</p>
         </div>
         <div class="day-rows">
-          <div class="row"><span class="t">до 12:00</span><span class="l">Заезд участников</span></div>
-          <div class="row"><span class="t">13:00-14:00</span><span class="l">Обед</span></div>
-           <div class="row"><span class="t">14:30-16:00</span><span class="l">Начало официальной части конференции</span></div>
-          <div class="row"><span class="t">16:00-18:00</span><span class="l">Воркшопы</span></div>
-          <div class="row"><span class="t">18:00-19:00</span><span class="l">Свободное время</span></div>
-           <div class="row"><span class="t">19:40-24:00</span><span class="l">Гала-ужин <span>· Дресс-код: Cocktail (коктейльный)</span></span></div>
+          <div class="row"><span class="t" data-i18n="prog.time_until_noon">до 12:00</span><span class="l" data-i18n="prog.checkin">Заезд участников</span></div>
+          <div class="row"><span class="t">13:00-14:00</span><span class="l" data-i18n="prog.lunch">Обед</span></div>
+           <div class="row"><span class="t">14:30-16:00</span><span class="l" data-i18n="prog.conf_start">Начало официальной части конференции</span></div>
+          <div class="row"><span class="t">16:00-18:00</span><span class="l" data-i18n="prog.workshops">Воркшопы</span></div>
+          <div class="row"><span class="t">18:00-19:00</span><span class="l" data-i18n="prog.free_time">Свободное время</span></div>
+           <div class="row"><span class="t">19:40-24:00</span><span class="l" data-i18n="prog.gala">Гала-ужин <span>· Дресс-код: Cocktail (коктейльный)</span></span></div>
             <div class="day-carousel" id="carousel">
-              <button class="carousel-btn carousel-btn--prev" aria-label="Предыдущее">‹</button>
+              <button class="carousel-btn carousel-btn--prev" aria-label="Предыдущее" data-i18n-aria="carousel.prev">‹</button>
               <div class="carousel-track">
                 <div class="carousel-slide">
-                  <figure><img loading="lazy" src="assets/1.png" alt="Зал Мангыстау" /></figure>
-                  <p class="slide-caption">Зал «Мангыстау» — Маркетинг</p>
+                  <figure><img loading="lazy" src="assets/1.png" alt="Зал Мангыстау" data-i18n-alt="carousel.img1_alt" /></figure>
+                  <p class="slide-caption" data-i18n="carousel.slide1">Зал «Мангыстау» — Маркетинг</p>
                 </div>
                 <div class="carousel-slide">
-                  <figure><img loading="lazy" src="assets/2.png" alt="Зал Алматы" /></figure>
-                  <p class="slide-caption">Зал «Алматы» — Продажи</p>
+                  <figure><img loading="lazy" src="assets/2.png" alt="Зал Алматы" data-i18n-alt="carousel.img2_alt" /></figure>
+                  <p class="slide-caption" data-i18n="carousel.slide2">Зал «Алматы» — Продажи</p>
                 </div>
                 <div class="carousel-slide">
-                  <figure><img loading="lazy" src="assets/3.png" alt="Зал Астана" /></figure>
-                  <p class="slide-caption">Зал «Астана» — Сервис</p>
+                  <figure><img loading="lazy" src="assets/3.png" alt="Зал Астана" data-i18n-alt="carousel.img3_alt" /></figure>
+                  <p class="slide-caption" data-i18n="carousel.slide3">Зал «Астана» — Сервис</p>
                 </div>
                 <div class="carousel-slide">
-                  <figure><img loading="lazy" src="assets/4.png" alt="Зал Бурабай" /></figure>
-                  <p class="slide-caption">Зал «Бурабай» — СПК</p>
+                  <figure><img loading="lazy" src="assets/4.png" alt="Зал Бурабай" data-i18n-alt="carousel.img4_alt" /></figure>
+                  <p class="slide-caption" data-i18n="carousel.slide4">Зал «Бурабай» — СПК</p>
                 </div>
               </div>
-              <button class="carousel-btn carousel-btn--next" aria-label="Следующее">›</button>
+              <button class="carousel-btn carousel-btn--next" aria-label="Следующее" data-i18n-aria="carousel.next">›</button>
               <div class="dots" id="dots20"></div>
             </div>
         </div>
@@ -869,19 +938,19 @@
       <article class="day">
         <div class="day-side">
           <p class="day-num">21</p>
-          <p class="day-cap">августа · день 2</p>
+          <p class="day-cap" data-i18n="prog.day2_cap">августа · день 2</p>
         </div>
         <div class="day-rows">
-          <div class="row"><span class="t">09:00-10:00</span><span class="l">Завтрак</span></div>
-          <div class="row"><span class="t">10:30-11:00</span><span class="l">Сбор гостей</span></div>
-          <div class="row"><span class="t">11:00-13:00</span><span class="l">Спортивный тимбилдинг <span>· с Валиханом Т.</span></span></div>
-          <div class="row"><span class="t">13:00-14:00</span><span class="l">Обед</span></div>
-          <div class="row"><span class="t">14:00-18:30</span><span class="l">Свободное время <span>· плавание, активности на выбор</span></span></div>
-          <div class="row"><span class="t">18:30-19:00</span><span class="l">Сбор гостей</span></div>
-          <div class="row"><span class="t">19:00-23:00</span><span class="l">Afterparty <span>· DJ Mado</span></span></div>
+          <div class="row"><span class="t">09:00-10:00</span><span class="l" data-i18n="prog.breakfast">Завтрак</span></div>
+          <div class="row"><span class="t">10:30-11:00</span><span class="l" data-i18n="prog.gathering">Сбор гостей</span></div>
+          <div class="row"><span class="t">11:00-13:00</span><span class="l" data-i18n="prog.teambuilding">Спортивный тимбилдинг <span>· с Валиханом Т.</span></span></div>
+          <div class="row"><span class="t">13:00-14:00</span><span class="l" data-i18n="prog.lunch2">Обед</span></div>
+          <div class="row"><span class="t">14:00-18:30</span><span class="l" data-i18n="prog.free_time2">Свободное время <span>· плавание, активности на выбор</span></span></div>
+          <div class="row"><span class="t">18:30-19:00</span><span class="l" data-i18n="prog.gathering2">Сбор гостей</span></div>
+          <div class="row"><span class="t">19:00-23:00</span><span class="l" data-i18n="prog.afterparty">Afterparty <span>· DJ Mado</span></span></div>
           <div class="day-photos two">
-            <figure><img loading="lazy" src="https://changan-summer-conf.higgsfield.app/assets/day2-teambuilding.webp" alt="Пляжный тимбилдинг на закате" /></figure>
-            <figure><img loading="lazy" src="assets/suret2.png" alt="Вечерняя afterparty у бассейна" /></figure>
+            <figure><img loading="lazy" src="https://changan-summer-conf.higgsfield.app/assets/day2-teambuilding.webp" alt="Пляжный тимбилдинг на закате" data-i18n-alt="day2.img1_alt" /></figure>
+            <figure><img loading="lazy" src="assets/suret2.png" alt="Вечерняя afterparty у бассейна" data-i18n-alt="day2.img2_alt" /></figure>
           </div>
         </div>
       </article>
@@ -889,11 +958,11 @@
       <article class="day">
         <div class="day-side">
           <p class="day-num">22</p>
-          <p class="day-cap">августа · день 3</p>
+          <p class="day-cap" data-i18n="prog.day3_cap">августа · день 3</p>
         </div>
         <div class="day-rows">
-          <div class="row"><span class="t">до 12:00</span><span class="l">Выезд участников из отеля</span></div>
-          <p class="day-note"><b>Важно:</b> Официальная программа завершается вечером 21 августа. При необходимости участники могут выехать из отеля после завершения вечерней программы. Для остальных гостей предусмотрен выезд 22 августа до 12:00.</p>
+          <div class="row"><span class="t" data-i18n="prog.time_until_noon">до 12:00</span><span class="l" data-i18n="prog.checkout">Выезд участников из отеля</span></div>
+          <p class="day-note" data-i18n-html="prog.note"><b>Важно:</b> Официальная программа завершается вечером 21 августа. При необходимости участники могут выехать из отеля после завершения вечерней программы. Для остальных гостей предусмотрен выезд 22 августа до 12:00.</p>
         </div>
       </article>
     </div>
@@ -902,36 +971,36 @@
   <!-- ===== Transport ===== -->
   <section id="transport" class="transport">
     <div class="transport-content">
-      <h2>Трансфер</h2>
-      <p>Для участников конференции организован трансфер между аэропортом Актау и отелем
+      <h2 data-i18n="trans.title">Трансфер</h2>
+      <p data-i18n="trans.desc">Для участников конференции организован трансфер между аэропортом Актау и отелем
          в дни заезда и выезда.</p>
       <div class="route">
         <div class="route-date">
           <img src="https://changan-summer-conf.higgsfield.app/assets/icon-plane.png" alt="" />
-          <span>20 августа</span>
+          <span data-i18n="trans.date1">20 августа</span>
         </div>
         <div class="route-line">
-          <span class="dot"></span><span class="route-dest">аэропорт Актау</span>
-          <span class="path"></span><span class="route-dest">Rixos Water World Aktau</span>
+          <span class="dot"></span><span class="route-dest" data-i18n="trans.from1">аэропорт Актау</span>
+          <span class="path"></span><span class="route-dest" data-i18n="trans.to1">Rixos Water World Aktau</span>
         </div>
       </div>
       <div class="route">
         <div class="route-date">
           <img src="https://changan-summer-conf.higgsfield.app/assets/icon-bus.png" alt="" />
-          <span>22 августа</span>
+          <span data-i18n="trans.date2">22 августа</span>
         </div>
         <div class="route-line">
-          <span class="dot"></span><span class="route-dest">Rixos Water World Aktau</span>
-          <span class="path"></span><span class="route-dest">аэропорт Актау</span>
+          <span class="dot"></span><span class="route-dest" data-i18n="trans.from2">Rixos Water World Aktau</span>
+          <span class="path"></span><span class="route-dest" data-i18n="trans.to2">аэропорт Актау</span>
         </div>
       </div>
-      <p class="transport-note transport-contacts"><b>Контакты менеджера:</b><br />Абдрахманова Назым <br> +7 771 480 70 80</p>
-      <p class="transport-note">Рекомендуем планировать прилет в Актау не позднее 10:00
+      <p class="transport-note transport-contacts" data-i18n-html="trans.contacts"><b>Контакты менеджера:</b><br />Абдрахманова Назым <br> +7 771 480 70 80</p>
+      <p class="transport-note" data-i18n="trans.recommend">Рекомендуем планировать прилет в Актау не позднее 10:00
         20 августа, чтобы успеть на трансфер, регистрацию и начало официальной программы в 14:30.</p>
       
     </div>
     <div class="transport-photo">
-      <img loading="lazy" src="assets/Container.png" alt="Транспортный контейнер" />
+      <img loading="lazy" src="assets/Container.png" alt="Транспортный контейнер" data-i18n-alt="transport.img_alt" />
       <div class="fade"></div>
     </div>
   </section>
@@ -939,22 +1008,22 @@
   <!-- ===== Venue ===== -->
   <section id="venue" class="venue">
     <div class="venue-stage">
-      <img loading="lazy" src="https://changan-summer-conf.higgsfield.app/assets/venue-map.webp" alt="Карта побережья Актау с расположением Rixos Water World Aktau" />
+      <img loading="lazy" src="https://changan-summer-conf.higgsfield.app/assets/venue-map.webp" alt="Карта побережья Актау с расположением Rixos Water World Aktau" data-i18n-alt="venue.map_alt" />
       <div class="venue-scrim"></div>
       <a class="marker" href="https://go.2gis.com/Rgwqq" target="_blank" rel="noreferrer" aria-label="Rixos Water World Aktau на карте 2ГИС">
         <span class="ring"></span><span class="core"></span>
         <span class="marker-label">RIXOS WATER <br>WORLD AKTAU</span>
       </a>
       <div class="venue-card">
-        <p class="label">Карта</p>
-        <h2>Rixos Water World<br />Aktau</h2>
+        <p class="label" data-i18n="venue.label">Карта</p>
+        <h2 data-i18n="venue.title">Rixos Water World<br />Aktau</h2>
         <div class="horizon"></div>
         <div class="venue-addr">
           <img src="https://changan-summer-conf.higgsfield.app/assets/icon-pin.png" alt="" />
-          <p>База отдыха Теплый пляж, 34, г. Актау<br />43.5065 N · 51.2966 E</p>
+          <p data-i18n="venue.addr">База отдыха Теплый пляж, 34, г. Актау<br />43.5065 N · 51.2966 E</p>
         </div>
         <a class="gis-link" href="https://go.2gis.com/Rgwqq" target="_blank" rel="noreferrer">
-          <span>Открыть в 2ГИС</span>
+          <span data-i18n="venue.gis">Открыть в 2ГИС</span>
           <svg width="46" height="10" viewBox="0 0 46 10" fill="none" style="overflow:visible">
             <path d="M1 8 C 12 8, 16 2, 27 2 L 40 2" stroke="#C6A15B" stroke-opacity=".5" stroke-width="1"/>
             <path class="head" d="M37 -1.5 L 41.5 2 L 37 5.5" stroke="#C6A15B" stroke-width="1.2" fill="none"/>
@@ -969,16 +1038,16 @@
     <div class="horizon"></div>
     <div class="wrap section-pad">
       <div class="reg-head" id="regHead">
-        <p class="kicker">Регистрация</p>
-        <h2>Подтверждение участия</h2>
-        <p>Просим подтвердить участие до <b>27.07.2026</b>, заполнив форму ниже.</p>
+        <p class="kicker" data-i18n="reg.kicker">Регистрация</p>
+        <h2 data-i18n="reg.title">Подтверждение участия</h2>
+        <p data-i18n="reg.desc">Просим подтвердить участие до <b>27.07.2026</b>, заполнив форму ниже.</p>
       </div>
 
       <form id="regForm" novalidate>
         <div class="grid2">
-          <label class="f"><span>Компания <i>*</i></span>
+          <label class="f"><span data-i18n="reg.company_label">Компания <i>*</i></span>
             <select class="field" name="company">
-              <option value="">Выберите компанию</option>
+              <option value="" data-i18n="reg.company_placeholder">Выберите компанию</option>
               <option value="Changan ABS">Changan ABS</option>
               <option value="Changan Kuldzhinka">Changan Kuldzhinka</option>
               <option value="Changan Mycar">Changan Mycar</option>
@@ -990,7 +1059,6 @@
               <option value="Changan E-motion">Changan E-motion</option>
               <option value="Changan Prime">Changan Prime</option>
               <option value="Changan Zhayik (Алматы)">Changan Zhayik (Алматы)</option>
-              <option value="Changan Mycar">Changan Mycar</option>
               <option value="Changan Jezqazgan">Changan Jezqazgan</option>
               <option value="Changan Zhayik (Актобе)">Changan Zhayik (Актобе)</option>
               <option value="Changan VM Premium (Алматы)">Changan VM Premium (Алматы)</option>
@@ -1012,9 +1080,9 @@
               <option value="Changan Aster (Талдыкорган)">Changan Aster (Талдыкорган)</option>
               <option value="Changan Aster (Петропавловск)">Changan Aster (Петропавловск)</option>
             </select>
-            <em class="field-error">Выберите компанию</em>
+            <em class="field-error" data-i18n="reg.company_placeholder">Выберите компанию</em>
           </label>
-          <label class="f"><span>Количество участников <i>*</i></span>
+          <label class="f"><span data-i18n="reg.count_label">Количество участников <i>*</i></span>
             <select class="field" name="participantsCount" id="participantsCount">
               <option value="1">1</option>
               <option value="2">2</option>
@@ -1030,53 +1098,53 @@
         <div id="participantsContainer"></div>
 
         <div class="grid2">
-          <label class="f"><span>Город</span>
+          <label class="f"><span data-i18n="reg.city_label">Город</span>
             <input class="field" name="city" />
           </label>
-          <label class="f"><span>Трансфер аэропорт-отель</span>
+          <label class="f"><span data-i18n="reg.transfer_label">Трансфер аэропорт-отель</span>
             <select class="field" name="transfer">
-              <option value="">Не выбрано</option>
-              <option value="да">Да, нужен трансфер</option>
-              <option value="нет">Нет, приеду сам</option>
+              <option value="" data-i18n="reg.transfer_none">Не выбрано</option>
+              <option value="да" data-i18n="reg.transfer_yes">Да, нужен трансфер</option>
+              <option value="нет" data-i18n="reg.transfer_no">Нет, приеду сам</option>
             </select>
           </label>
-          <label class="f"><span>Дата прилета</span>
+          <label class="f"><span data-i18n="reg.arrival_label">Дата прилета</span>
             <input class="field" type="date" name="arrivalDate" />
           </label>
-          <label class="f"><span>Дата вылета</span>
+          <label class="f"><span data-i18n="reg.departure_label">Дата вылета</span>
             <input class="field" type="date" name="departureDate" />
           </label>
         </div>
 
-        <label class="f"><span>Комментарий</span>
+        <label class="f"><span data-i18n="reg.comment_label">Комментарий</span>
           <textarea class="field" name="comment"></textarea>
         </label>
 
         <label class="check">
           <input type="checkbox" name="confirmed" />
           <span class="box"></span>
-          <p>Я подтверждаю участие в конференции<br />
-            <em class="field-error" style="font-style:normal">Подтвердите участие</em></p>
+          <p data-i18n="reg.confirm_text">Я подтверждаю участие в конференции<br />
+            <em class="field-error" style="font-style:normal" data-i18n="reg.confirm_error">Подтвердите участие</em></p>
         </label>
 
-        <p class="form-error" id="formError">Не удалось отправить заявку. Попробуйте еще раз
+        <p class="form-error" id="formError" data-i18n="reg.form_error">Не удалось отправить заявку. Попробуйте еще раз
           или напишите вашему менеджеру Changan Kazakhstan.</p>
 
         <button type="submit" class="band" id="submitBtn">
           <span class="h top"></span><span class="h bot"></span>
           <span class="hh top"></span><span class="hh bot"></span>
-          <span id="submitLabel">Отправить заявку</span>
+          <span id="submitLabel" data-i18n="reg.submit">Отправить заявку</span>
         </button>
 
-        <p class="privacy">Нажимая «Отправить заявку», вы соглашаетесь на обработку
+        <p class="privacy" data-i18n="reg.privacy">Нажимая «Отправить заявку», вы соглашаетесь на обработку
           персональных данных организаторами конференции.</p>
       </form>
 
       <div class="success" id="regSuccess">
         <p class="mark">✓</p>
-        <h2>Заявка принята</h2>
+        <h2 data-i18n="reg.success_title">Заявка принята</h2>
         <div class="horizon"></div>
-        <p>Спасибо! Ваши данные переданы организаторам. До встречи 20 августа в Актау.</p>
+        <p data-i18n="reg.success_text">Спасибо! Ваши данные переданы организаторам. До встречи 20 августа в Актау.</p>
       </div>
     </div>
   </section>
@@ -1087,9 +1155,9 @@
     <div class="inner">
       <div>
         <p class="fbrand">Changan</p>
-        <p class="fmeta">Summer Dealer Conference · 20-22 августа 2026 · Актау</p>
+        <p class="fmeta" data-i18n="footer.meta">Summer Dealer Conference · 20-22 августа 2026 · Актау</p>
       </div>
-      <p class="copy">© 2026 Changan Kazakhstan. Все права защищены.</p>
+      <p class="copy" data-i18n="footer.copy">© 2026 Changan Kazakhstan. Все права защищены.</p>
     </div>
   </footer>
 
@@ -1134,6 +1202,424 @@
     // Каждый участник компании записывается отдельной строкой. 
     // Заголовки автоматически добавляются в первую строку при первом запросе.
     var SHEETS_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbydAJjKbs-z-YBASEfAXPOm_J8WnxNffBrZuGBvJprH_byY1KqncKhnurIjqPAu5e-aBw/exec";
+
+    var TRANSLATIONS = {
+      ru: {
+        "nav.about": "О конференции",
+        "nav.program": "Программа",
+        "nav.transport": "Трансфер",
+        "nav.venue": "Место",
+        "nav.cta": "Подтвердить участие",
+        "hero.title": "Summer Dealer<br />Conference 2026",
+        "hero.meta": "20-22 августа 2026 · Rixos Water World Aktau · г. Актау",
+        "hero.cta": "Подтвердить участие <span class=\"arrow\">→</span>",
+        "hero.img_alt": "Rixos Water World Aktau на берегу Каспийского моря ночью",
+        "inv.greeting": "Уважаемые партнеры!",
+        "inv.lead_main": "Приглашаем вас на ежегодную Летнюю дилерскую конференцию Changan Kazakhstan:",
+        "inv.lead_sub": "два дня деловой программы, общения, командных активностей и отдыха на берегу Каспийского моря.",
+        "inv.dress": "<b>Дресс-код:</b> Cocktail (коктейльный). Для мужчин: деловой костюм или пиджак с брюками.",
+        "inv.lead_end": "Будем рады видеть вас среди участников Summer Dealer Conference 2026.",
+        "inv.date_label": "Дата",
+        "inv.start_label": "Начало конференции",
+        "inv.venue_label": "Место",
+        "inv.date_value": "20-22.08.2026",
+        "inv.start_value": "20 августа, 14:30",
+        "inv.venue_value": "Rixos Water World Aktau<br />Банкетный зал «Мангыстау»",
+        "prog.title": "Программа мероприятия",
+        "prog.day1_cap": "августа · день 1",
+        "prog.day2_cap": "августа · день 2",
+        "prog.day3_cap": "августа · день 3",
+        "prog.checkin": "Заезд участников",
+        "prog.time_until_noon": "до 12:00",
+        "prog.lunch": "Обед",
+        "prog.conf_start": "Начало официальной части конференции",
+        "prog.workshops": "Воркшопы",
+        "prog.free_time": "Свободное время",
+        "prog.gala": "Гала-ужин <span>· Дресс-код: Cocktail (коктейльный)</span>",
+        "prog.breakfast": "Завтрак",
+        "prog.gathering": "Сбор гостей",
+        "prog.teambuilding": "Спортивный тимбилдинг <span>· с Валиханом Т.</span>",
+        "prog.lunch2": "Обед",
+        "prog.free_time2": "Свободное время <span>· плавание, активности на выбор</span>",
+        "prog.gathering2": "Сбор гостей",
+        "prog.afterparty": "Afterparty <span>· DJ Mado</span>",
+        "prog.checkout": "Выезд участников из отеля",
+        "prog.note": "<b>Важно:</b> Официальная программа завершается вечером 21 августа. При необходимости участники могут выехать из отеля после завершения вечерней программы. Для остальных гостей предусмотрен выезд 22 августа до 12:00.",
+        "carousel.slide1": "Зал «Мангыстау» — Маркетинг",
+        "carousel.slide2": "Зал «Алматы» — Продажи",
+        "carousel.slide3": "Зал «Астана» — Сервис",
+        "carousel.slide4": "Зал «Бурабай» — СПК",
+        "carousel.img1_alt": "Зал Мангыстау",
+        "carousel.img2_alt": "Зал Алматы",
+        "carousel.img3_alt": "Зал Астана",
+        "carousel.img4_alt": "Зал Бурабай",
+        "day2.img1_alt": "Пляжный тимбилдинг на закате",
+        "day2.img2_alt": "Вечерняя afterparty у бассейна",
+        "trans.title": "Трансфер",
+        "trans.desc": "Для участников конференции организован трансфер между аэропортом Актау и отелем в дни заезда и выезда.",
+        "trans.date1": "20 августа",
+        "trans.from1": "аэропорт Актау",
+        "trans.to1": "Rixos Water World Aktau",
+        "trans.date2": "22 августа",
+        "trans.from2": "Rixos Water World Aktau",
+        "trans.to2": "аэропорт Актау",
+        "trans.contacts": "<b>Контакты менеджера:</b><br />Абдрахманова Назым <br> +7 771 480 70 80",
+        "trans.recommend": "Рекомендуем планировать прилет в Актау не позднее 10:00 20 августа, чтобы успеть на трансфер, регистрацию и начало официальной программы в 14:30.",
+        "transport.img_alt": "Транспортный контейнер",
+        "venue.label": "Карта",
+        "venue.title": "Rixos Water World<br />Aktau",
+        "venue.addr": "База отдыха Теплый пляж, 34, г. Актау<br />43.5065 N · 51.2966 E",
+        "venue.gis": "Открыть в 2ГИС",
+        "venue.map_alt": "Карта побережья Актау с расположением Rixos Water World Aktau",
+        "venue.marker_aria": "Rixos Water World Aktau на карте 2ГИС",
+        "reg.kicker": "Регистрация",
+        "reg.title": "Подтверждение участия",
+        "reg.desc": "Просим подтвердить участие до <b>27.07.2026</b>, заполнив форму ниже.",
+        "reg.company_label": "Компания <i>*</i>",
+        "reg.company_placeholder": "Выберите компанию",
+        "reg.count_label": "Количество участников <i>*</i>",
+        "reg.city_label": "Город",
+        "reg.transfer_label": "Трансфер аэропорт-отель",
+        "reg.transfer_none": "Не выбрано",
+        "reg.transfer_yes": "Да, нужен трансфер",
+        "reg.transfer_no": "Нет, приеду сам",
+        "reg.arrival_label": "Дата прилета",
+        "reg.departure_label": "Дата вылета",
+        "reg.comment_label": "Комментарий",
+        "reg.confirm_text": "Я подтверждаю участие в конференции",
+        "reg.confirm_error": "Подтвердите участие",
+        "reg.form_error": "Не удалось отправить заявку. Попробуйте еще раз или напишите вашему менеджеру Changan Kazakhstan.",
+        "reg.submit": "Отправить заявку",
+        "reg.privacy": "Нажимая «Отправить заявку», вы соглашаетесь на обработку персональных данных организаторами конференции.",
+        "reg.success_title": "Заявка принята",
+        "reg.success_text": "Спасибо! Ваши данные переданы организаторам. До встречи 20 августа в Актау.",
+        "part.title": "Участник",
+        "part.first_name": "Имя <i>*</i>",
+        "part.last_name": "Фамилия <i>*</i>",
+        "part.position": "Должность <i>*</i>",
+        "part.position_placeholder": "Выберите должность",
+        "part.first_error": "Укажите имя",
+        "part.last_error": "Укажите фамилию",
+        "part.position_error": "Выберите должность",
+        "reg.sending": "Отправляем...",
+        "reg.no_sheets": "Форма не подключена к Google Таблице: вставьте URL Apps Script в константу SHEETS_WEBHOOK_URL в коде страницы.",
+        "reg.send_fail": "Не удалось отправить заявку. Проверьте подключение к интернету и попробуйте еще раз.",
+        "footer.meta": "Summer Dealer Conference · 20-22 августа 2026 · Актау",
+        "footer.copy": "© 2026 Changan Kazakhstan. Все права защищены.",
+        "carousel.prev": "Предыдущее",
+        "carousel.next": "Следующее"
+      },
+      kz: {
+        "nav.about": "Конференция туралы",
+        "nav.program": "Бағдарлама",
+        "nav.transport": "Трансфер",
+        "nav.venue": "Орын",
+        "nav.cta": "Қатысуды растау",
+        "hero.title": "Summer Dealer<br />Conference 2026",
+        "hero.meta": "20-22 тамыз 2026 · Rixos Water World Aktau · Ақтау қ.",
+        "hero.cta": "Қатысуды растау <span class=\"arrow\">→</span>",
+        "hero.img_alt": "Rixos Water World Aktau Каспий теңізі жағасында түнде",
+        "inv.greeting": "Құрметті серіктестер!",
+        "inv.lead_main": "Біз сіздерді Changan Kazakhstan-дың жылдық Жазғы дилерлер конференциясына шақырамыз:",
+        "inv.lead_sub": "іскерлік бағдарлама, өзара әңгіме, командалық іс-шаралар және Каспий теңізі жағасында демалудың екі күні.",
+        "inv.dress": "<b>Дресс-код:</b> Коктейль. Ерлерге: іскерлік костюм немесе пиджак пен шалбар.",
+        "inv.lead_end": "Summer Dealer Conference 2026 қатысушылары қатарында сізді көргенімізге қуаныштымыз.",
+        "inv.date_label": "Күні",
+        "inv.start_label": "Конференция басталуы",
+        "inv.venue_label": "Орын",
+        "inv.date_value": "20-22.08.2026",
+        "inv.start_value": "20 тамыз, 14:30",
+        "inv.venue_value": "Rixos Water World Aktau<br />«Маңғыстау» банкет залы",
+        "prog.title": "Іс-шара бағдарламасы",
+        "prog.day1_cap": "тамыз · 1-күн",
+        "prog.day2_cap": "тамыз · 2-күн",
+        "prog.day3_cap": "тамыз · 3-күн",
+        "prog.checkin": "Қатысушылардың келуі",
+        "prog.time_until_noon": "сағат 12:00-ге дейін",
+        "prog.lunch": "Түскі ас",
+        "prog.conf_start": "Конференцияның ресми бөлімінің басталуы",
+        "prog.workshops": "Воркшоптар",
+        "prog.free_time": "Бос уақыт",
+        "prog.gala": "Гала кешкі ас <span>· Дресс-код: Коктейль</span>",
+        "prog.breakfast": "Таңғы ас",
+        "prog.gathering": "Қонақтардың жиналуы",
+        "prog.teambuilding": "Спорттық тимбилдинг <span>· Валихан Т. бірге</span>",
+        "prog.lunch2": "Түскі ас",
+        "prog.free_time2": "Бос уақыт <span>· жүзу, таңдау бойынша іс-шаралар</span>",
+        "prog.gathering2": "Қонақтардың жиналуы",
+        "prog.afterparty": "Afterparty <span>· DJ Mado</span>",
+        "prog.checkout": "Қонақ үйден шығу",
+        "prog.note": "<b>Маңызды:</b> Ресми бағдарлама 21 тамыздың кешінде аяқталады. Қажет болған жағдайда қатысушылар кешкі бағдарлама аяқталғаннан кейін қонақ үйден шыға алады. Қалған қонақтар үшін 22 тамызға дейін 12:00-ге дейін шығу қарастырылған.",
+        "carousel.slide1": "«Маңғыстау» залы — Маркетинг",
+        "carousel.slide2": "«Алматы» залы — Сауда",
+        "carousel.slide3": "«Астана» залы — Сервис",
+        "carousel.slide4": "«Бурабай» залы — СПК",
+        "carousel.img1_alt": "Маңғыстау залы",
+        "carousel.img2_alt": "Алматы залы",
+        "carousel.img3_alt": "Астана залы",
+        "carousel.img4_alt": "Бурабай залы",
+        "day2.img1_alt": "Күн батар кезіндегі жағажайдағы спорттық тимбилдинг",
+        "day2.img2_alt": "Бассейн жанындағы кешкі afterparty",
+        "trans.title": "Трансфер",
+        "trans.desc": "Конференцияға қатысушыларға Ақтау әуежайы мен қонақ үй арасында келу және шығу күндері трансфер ұйымдастырылған.",
+        "trans.date1": "20 тамыз",
+        "trans.from1": "Ақтау әуежайы",
+        "trans.to1": "Rixos Water World Aktau",
+        "trans.date2": "22 тамыз",
+        "trans.from2": "Rixos Water World Aktau",
+        "trans.to2": "Ақтау әуежайы",
+        "trans.contacts": "<b>Менеджердің байланыстары:</b><br />Абдрахманова Назым <br> +7 771 480 70 80",
+        "trans.recommend": "Ақтауға 20 тамызға дейін 10:00-ге дейін ұшып келуді ұсынамыз, трансферге, тіркелуге және ресми бағдарламаның 14:30-да басталуына үлгеру үшін.",
+        "transport.img_alt": "Көлік контейнері",
+        "venue.label": "Карта",
+        "venue.title": "Rixos Water World<br />Aktau",
+        "venue.addr": "Демалыс базасы «Теплый пляж», 34, Ақтау қ.<br />43.5065 N · 51.2966 E",
+        "venue.gis": "2ГИС-те ашу",
+        "venue.map_alt": "Ақтау жағажайының картасы, Rixos Water World Aktau орналасқан жері",
+        "venue.marker_aria": "Rixos Water World Aktau 2ГИС картасында",
+        "reg.kicker": "Тіркелу",
+        "reg.title": "Қатысуды растау",
+        "reg.desc": "<b>27.07.2026</b> дейін растаңыз, төмендегі форманы толтырыңыз.",
+        "reg.company_label": "Компания <i>*</i>",
+        "reg.company_placeholder": "Компанияны таңдаңыз",
+        "reg.count_label": "Қатысушылар саны <i>*</i>",
+        "reg.city_label": "Қала",
+        "reg.transfer_label": "Аэропорт-қонақ үй трансфері",
+        "reg.transfer_none": "Таңдалмаған",
+        "reg.transfer_yes": "Иә, трансфер қажет",
+        "reg.transfer_no": "Жоқ, өзім барамын",
+        "reg.arrival_label": "Ұшып келу күні",
+        "reg.departure_label": "Ұшып кету күні",
+        "reg.comment_label": "Пікір",
+        "reg.confirm_text": "Мен конференцияға қатысуымды растаймын",
+        "reg.confirm_error": "Қатысуды растаңыз",
+        "reg.form_error": "Өтінімді жіберу мүмкін болмады. Қайтадан көріңіз немесе Changan Kazakhstan менеджеріне жазыңыз.",
+        "reg.submit": "Өтінімді жіберу",
+        "reg.privacy": "«Өтінімді жіберу» батырмасын басу арқылы сіз конференция ұйымдастырушыларының жеке деректерді өңдеуіне келісесіз.",
+        "reg.success_title": "Өтінім қабылданды",
+        "reg.success_text": "Рахмет! Сіздің деректеріңіз ұйымдастырушыларға жіберілді. 20 тамызда Ақтауда кездесеміз.",
+        "part.title": "Қатысушы",
+        "part.first_name": "Аты <i>*</i>",
+        "part.last_name": "Тегі <i>*</i>",
+        "part.position": "Лауазымы <i>*</i>",
+        "part.position_placeholder": "Лауазымды таңдаңыз",
+        "part.first_error": "Атыңызды көрсетіңіз",
+        "part.last_error": "Тегіңізді көрсетіңіз",
+        "part.position_error": "Лауазымды таңдаңыз",
+        "reg.sending": "Жіберілуде...",
+        "reg.no_sheets": "Форма Google Кестесіне қосылмаған: SHEETS_WEBHOOK_URL константасына Apps Script URL-ды енгізіңіз.",
+        "reg.send_fail": "Өтінімді жіберу мүмкін болмады. Интернетке қосылымыңызды тексеріп, қайтадан көріңіз.",
+        "footer.meta": "Summer Dealer Conference · 20-22 тамыз 2026 · Ақтау",
+        "footer.copy": "© 2026 Changan Kazakhstan. Барлық құқықтар қорғалған.",
+        "carousel.prev": "Алдыңғы",
+        "carousel.next": "Келесі"
+      },
+      en: {
+        "nav.about": "About",
+        "nav.program": "Program",
+        "nav.transport": "Transfer",
+        "nav.venue": "Venue",
+        "nav.cta": "RSVP",
+        "hero.title": "Summer Dealer<br />Conference 2026",
+        "hero.meta": "August 20-22, 2026 · Rixos Water World Aktau · Aktau",
+        "hero.cta": "RSVP <span class=\"arrow\">→</span>",
+        "hero.img_alt": "Rixos Water World Aktau at night on the Caspian Sea coast",
+        "inv.greeting": "Dear partners!",
+        "inv.lead_main": "You are invited to the annual Summer Dealer Conference of Changan Kazakhstan:",
+        "inv.lead_sub": "two days of business program, networking, team activities and rest on the Caspian Sea coast.",
+        "inv.dress": "<b>Dress code:</b> Cocktail. For men: business suit or jacket with trousers.",
+        "inv.lead_end": "We look forward to seeing you at Summer Dealer Conference 2026.",
+        "inv.date_label": "Date",
+        "inv.start_label": "Conference start",
+        "inv.venue_label": "Venue",
+        "inv.date_value": "Aug 20-22, 2026",
+        "inv.start_value": "August 20, 14:30",
+        "inv.venue_value": "Rixos Water World Aktau<br />«Mangystau» banquet hall",
+        "prog.title": "Event Program",
+        "prog.day1_cap": "August · Day 1",
+        "prog.day2_cap": "August · Day 2",
+        "prog.day3_cap": "August · Day 3",
+        "prog.checkin": "Check-in",
+        "prog.time_until_noon": "until 12:00",
+        "prog.lunch": "Lunch",
+        "prog.conf_start": "Start of official conference part",
+        "prog.workshops": "Workshops",
+        "prog.free_time": "Free time",
+        "prog.gala": "Gala dinner <span>· Dress code: Cocktail</span>",
+        "prog.breakfast": "Breakfast",
+        "prog.gathering": "Guest gathering",
+        "prog.teambuilding": "Sports teambuilding <span>· with Valikhan T.</span>",
+        "prog.lunch2": "Lunch",
+        "prog.free_time2": "Free time <span>· swimming, activities of choice</span>",
+        "prog.gathering2": "Guest gathering",
+        "prog.afterparty": "Afterparty <span>· DJ Mado</span>",
+        "prog.checkout": "Check-out",
+        "prog.note": "<b>Important:</b> The official program ends on the evening of August 21. If necessary, participants can check out after the evening program. For other guests, check-out is scheduled for August 22 before 12:00.",
+        "carousel.slide1": "«Mangystau» Hall — Marketing",
+        "carousel.slide2": "«Almaty» Hall — Sales",
+        "carousel.slide3": "«Astana» Hall — Service",
+        "carousel.slide4": "«Burabay» Hall — CPO",
+        "carousel.img1_alt": "Mangystau Hall",
+        "carousel.img2_alt": "Almaty Hall",
+        "carousel.img3_alt": "Astana Hall",
+        "carousel.img4_alt": "Burabay Hall",
+        "day2.img1_alt": "Beach teambuilding at sunset",
+        "day2.img2_alt": "Evening afterparty by the pool",
+        "trans.title": "Transfer",
+        "trans.desc": "Transfer between Aktau airport and the hotel is organized for conference participants on arrival and departure days.",
+        "trans.date1": "August 20",
+        "trans.from1": "Aktau airport",
+        "trans.to1": "Rixos Water World Aktau",
+        "trans.date2": "August 22",
+        "trans.from2": "Rixos Water World Aktau",
+        "trans.to2": "Aktau airport",
+        "trans.contacts": "<b>Manager contacts:</b><br />Abdrakhmanova Nazym <br> +7 771 480 70 80",
+        "trans.recommend": "We recommend planning your arrival in Aktau no later than 10:00 on August 20 to make it to the transfer, registration and the start of the official program at 14:30.",
+        "transport.img_alt": "Transport container",
+        "venue.label": "Map",
+        "venue.title": "Rixos Water World<br />Aktau",
+        "venue.addr": "Base of recreation Teply plyazh, 34, Aktau<br />43.5065 N · 51.2966 E",
+        "venue.gis": "Open in 2GIS",
+        "venue.map_alt": "Map of Aktau coast with location of Rixos Water World Aktau",
+        "venue.marker_aria": "Rixos Water World Aktau on 2GIS map",
+        "reg.kicker": "Registration",
+        "reg.title": "RSVP",
+        "reg.desc": "Please confirm your participation by <b>July 27, 2026</b> by filling out the form below.",
+        "reg.company_label": "Company <i>*</i>",
+        "reg.company_placeholder": "Select company",
+        "reg.count_label": "Number of participants <i>*</i>",
+        "reg.city_label": "City",
+        "reg.transfer_label": "Airport-hotel transfer",
+        "reg.transfer_none": "Not selected",
+        "reg.transfer_yes": "Yes, need transfer",
+        "reg.transfer_no": "No, I'll come myself",
+        "reg.arrival_label": "Arrival date",
+        "reg.departure_label": "Departure date",
+        "reg.comment_label": "Comment",
+        "reg.confirm_text": "I confirm my participation in the conference",
+        "reg.confirm_error": "Confirm participation",
+        "reg.form_error": "Failed to send application. Please try again or contact your Changan Kazakhstan manager.",
+        "reg.submit": "Submit application",
+        "reg.privacy": "By clicking \"Submit application\", you agree to the processing of personal data by the conference organizers.",
+        "reg.success_title": "Application accepted",
+        "reg.success_text": "Thank you! Your data has been sent to the organizers. See you on August 20 in Aktau.",
+        "part.title": "Participant",
+        "part.first_name": "First name <i>*</i>",
+        "part.last_name": "Last name <i>*</i>",
+        "part.position": "Position <i>*</i>",
+        "part.position_placeholder": "Select position",
+        "part.first_error": "Enter your first name",
+        "part.last_error": "Enter your last name",
+        "part.position_error": "Select position",
+        "reg.sending": "Sending...",
+        "reg.no_sheets": "Form is not connected to Google Sheets: paste the Apps Script URL into the SHEETS_WEBHOOK_URL constant in the page code.",
+        "reg.send_fail": "Failed to send application. Check your internet connection and try again.",
+        "footer.meta": "Summer Dealer Conference · August 20-22, 2026 · Aktau",
+        "footer.copy": "© 2026 Changan Kazakhstan. All rights reserved.",
+        "carousel.prev": "Previous",
+        "carousel.next": "Next"
+      }
+    };
+
+    var POSITIONS_TRANSLATIONS = {
+      ru: ["Директор ДЦ","Заместитель директора ДЦ","Директор Департамента продаж","Руководитель отдела продаж","Менеджер по продажам","Директор по маркетингу","Менеджер по маркетингу","Технический директор","Руководитель отдела сервиса","СПК"],
+      kz: ["ДЦ директоры","ДЦ директорының орынбасары","Сату департаментінің директоры","Сату бөлімінің басшысы","Сату менеджері","Маркетинг директоры","Маркетинг менеджері","Техникалық директор","Сервис бөлімінің басшысы","СПК"],
+      en: ["Dealership Director","Deputy Dealership Director","Sales Department Director","Sales Department Head","Sales Manager","Marketing Director","Marketing Manager","Technical Director","Service Department Head","CPO"]
+    };
+
+    var currentLang = localStorage.getItem("conf_lang") || "ru";
+
+    function applyLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem("conf_lang", lang);
+      var t = TRANSLATIONS[lang] || TRANSLATIONS.ru;
+      document.documentElement.setAttribute("lang", lang);
+
+      document.querySelectorAll("[data-i18n]").forEach(function (el) {
+        var key = el.getAttribute("data-i18n");
+        if (t[key]) el.innerHTML = t[key];
+      });
+
+      document.querySelectorAll("[data-i18n-html]").forEach(function (el) {
+        var key = el.getAttribute("data-i18n-html");
+        if (t[key]) el.innerHTML = t[key];
+      });
+
+      document.querySelectorAll("[data-i18n-alt]").forEach(function (el) {
+        var key = el.getAttribute("data-i18n-alt");
+        if (t[key]) el.setAttribute("alt", t[key]);
+      });
+
+      document.querySelectorAll("[data-i18n-aria]").forEach(function (el) {
+        var key = el.getAttribute("data-i18n-aria");
+        if (t[key]) el.setAttribute("aria-label", t[key]);
+      });
+
+      translateParticipants(lang);
+      translatePositions(lang);
+
+      document.querySelectorAll(".nav-lang-btn").forEach(function (btn) {
+        btn.classList.toggle("active", btn.getAttribute("data-lang") === lang);
+      });
+    }
+
+    function translateParticipants(lang) {
+      var blocks = document.querySelectorAll(".participant-block");
+      blocks.forEach(function (block, idx) {
+        var title = block.querySelector(".participant-title");
+        if (title) {
+          var base = TRANSLATIONS[lang]["part.title"];
+          title.textContent = base + " " + (idx + 1);
+        }
+        var fnLabel = block.querySelector('[data-p="firstName"]').closest("label").querySelector("span");
+        if (fnLabel) fnLabel.innerHTML = TRANSLATIONS[lang]["part.first_name"];
+        var lnLabel = block.querySelector('[data-p="lastName"]').closest("label").querySelector("span");
+        if (lnLabel) lnLabel.innerHTML = TRANSLATIONS[lang]["part.last_name"];
+        var poLabel = block.querySelector('[data-p="position"]').closest("label").querySelector("span");
+        if (poLabel) poLabel.innerHTML = TRANSLATIONS[lang]["part.position"];
+        var fnErr = block.querySelector('[data-p="firstName"]').closest("label").querySelector(".field-error");
+        if (fnErr) fnErr.textContent = TRANSLATIONS[lang]["part.first_error"];
+        var lnErr = block.querySelector('[data-p="lastName"]').closest("label").querySelector(".field-error");
+        if (lnErr) lnErr.textContent = TRANSLATIONS[lang]["part.last_error"];
+        var poErr = block.querySelector('[data-p="position"]').closest("label").querySelector(".field-error");
+        if (poErr) poErr.textContent = TRANSLATIONS[lang]["part.position_error"];
+      });
+    }
+
+    function translatePositions(lang) {
+      var selects = document.querySelectorAll('[data-p="position"]');
+      selects.forEach(function (sel) {
+        var options = sel.querySelectorAll("option");
+        var pos = POSITIONS_TRANSLATIONS[lang] || POSITIONS_TRANSLATIONS.ru;
+        options.forEach(function (opt, i) {
+          if (i === 0) {
+            opt.textContent = TRANSLATIONS[lang]["part.position_placeholder"];
+          } else if (pos[i - 1]) {
+            opt.textContent = pos[i - 1];
+          }
+        });
+      });
+    }
+
+    document.querySelectorAll(".lang-btn").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var lang = btn.getAttribute("data-lang");
+        applyLanguage(lang);
+        document.getElementById("langOverlay").classList.add("hidden");
+      });
+    });
+
+    document.querySelectorAll(".nav-lang-btn").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var lang = btn.getAttribute("data-lang");
+        applyLanguage(lang);
+      });
+    });
+
+    if (localStorage.getItem("conf_lang")) {
+      applyLanguage(currentLang);
+      document.getElementById("langOverlay").classList.add("hidden");
+    }
 
     var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -1194,7 +1680,7 @@
       ];
 
       function positionOptions() {
-        var html = '<option value="">Выберите должность</option>';
+        var html = '<option value="" data-i18n="part.position_placeholder">Выберите должность</option>';
         POSITIONS.forEach(function (p) {
           html += '<option value="' + p + '">' + p + '</option>';
         });
@@ -1204,19 +1690,19 @@
       function participantBlock(i) {
         return (
           '<div class="participant-block">' +
-            '<p class="participant-title">Участник ' + i + '</p>' +
+            '<p class="participant-title" data-i18n="part.title">Участник ' + i + '</p>' +
             '<div class="grid2">' +
-              '<label class="f"><span>Имя <i>*</i></span>' +
+              '<label class="f"><span data-i18n="part.first_name">Имя <i>*</i></span>' +
                 '<input class="field" data-p="firstName" autocomplete="given-name" />' +
-                '<em class="field-error">Укажите имя</em>' +
+                '<em class="field-error" data-i18n="part.first_error">Укажите имя</em>' +
               '</label>' +
-              '<label class="f"><span>Фамилия <i>*</i></span>' +
+              '<label class="f"><span data-i18n="part.last_name">Фамилия <i>*</i></span>' +
                 '<input class="field" data-p="lastName" autocomplete="family-name" />' +
-                '<em class="field-error">Укажите фамилию</em>' +
+                '<em class="field-error" data-i18n="part.last_error">Укажите фамилию</em>' +
               '</label>' +
-              '<label class="f"><span>Должность <i>*</i></span>' +
+              '<label class="f"><span data-i18n="part.position">Должность <i>*</i></span>' +
                 '<select class="field" data-p="position">' + positionOptions() + '</select>' +
-                '<em class="field-error">Выберите должность</em>' +
+                '<em class="field-error" data-i18n="part.position_error">Выберите должность</em>' +
               '</label>' +
             '</div>' +
           '</div>'
@@ -1239,6 +1725,8 @@
           if (existing[idx].lastName) la.value = existing[idx].lastName;
           if (existing[idx].position) po.value = existing[idx].position;
         });
+        translateParticipants(currentLang);
+        translatePositions(currentLang);
       }
 
       function readParticipants() {
@@ -1290,13 +1778,13 @@
         if (!ok) return;
 
         if (!SHEETS_WEBHOOK_URL) {
-          formError.textContent = "Форма не подключена к Google Таблице: вставьте URL Apps Script в константу SHEETS_WEBHOOK_URL в коде страницы.";
+          formError.textContent = TRANSLATIONS[currentLang]["reg.no_sheets"] || "Форма не подключена к Google Таблице...";
           formError.style.display = "block";
           return;
         }
 
         btn.disabled = true;
-        label.textContent = "Отправляем...";
+        label.textContent = TRANSLATIONS[currentLang]["reg.sending"] || "Отправляем...";
         var payload = {
           timestamp: new Date().toISOString(),
           company: f.company.value,
@@ -1318,7 +1806,7 @@
           document.getElementById("regSuccess").style.display = "block";
           document.getElementById("registration").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
         }).catch(function () {
-          formError.textContent = "Не удалось отправить заявку. Проверьте подключение к интернету и попробуйте еще раз.";
+          formError.textContent = TRANSLATIONS[currentLang]["reg.send_fail"] || "Не удалось отправить заявку. Проверьте подключение к интернету и попробуйте еще раз.";
           formError.style.display = "block";
           btn.disabled = false;
           label.textContent = "Отправить заявку";
