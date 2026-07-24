@@ -292,6 +292,9 @@
       letter-spacing: .5px;
     }
     .inv-lead p + p { margin-top: 1.25rem; font-size: 1rem; }
+    .inv-lead-main { font-size: 1.15rem; font-weight: 500; }
+    .inv-dress { margin-top: 1.5rem; font-size: .95rem; color: var(--muted); }
+    .inv-dress b { color: var(--gold); font-weight: 600; }
     .inv-divider { display: none; background: var(--hairline); }
     @media (min-width: 768px) { .inv-divider { display: none; width: 1px; } }
     @media (min-width: 768px) { .inv-rail { padding-left: 0; } }
@@ -359,8 +362,8 @@
       width: 6px; height: 6px; border-radius: 50%; background: var(--gold);
     }
     @media (min-width: 768px) { .row::before { left: -3.34rem; } }
-    .row .t { font-family: var(--mono); font-size: .875rem; letter-spacing: .08em; color: var(--gold); }
-    .row .l { font-size: 1.05rem; }
+    .row .t { font-family: var(--mono); font-size: 1rem; letter-spacing: .08em; color: var(--gold); }
+    .row .l { font-size: 1.2rem; }
     .row .l span { color: var(--muted); }
     .day-photos { display: grid; gap: 1rem; margin-top: 2rem; }
     .day-photos.two { grid-template-columns: 1fr 1fr; }
@@ -618,14 +621,16 @@
       .inv-orn-top { margin-top: .75rem; }
       .inv-lead h2 { font-size: clamp(1.6rem, 7vw, 2.2rem); }
       .inv-lead p { font-size: .95rem; }
+      .inv-lead-main { font-size: 1.05rem; }
+      .inv-dress { font-size: .9rem; }
       .inv-rail { gap: 1.25rem; }
       .fact dd { font-size: 1.05rem; }
       .note { padding: 1.25rem; font-size: .8rem; }
       
       .day-num { font-size: clamp(4rem, 18vw, 7rem); letter-spacing: .5px; }
       .row { padding: 1rem 0; }
-      .row .t { font-size: .8rem; }
-      .row .l { font-size: .95rem; }
+      .row .t { font-size: .9rem; }
+      .row .l { font-size: 1.1rem; }
       .day-photos img { height: 10rem; }
       
       .transport { grid-template-columns: 1fr; }
@@ -800,15 +805,16 @@
             <div class="inv-orn-top"><span class="l"></span><span class="d"></span><span class="l"></span></div>
           </div>
 
-          <p>Приглашаем вас на ежегодную Летнюю дилерскую конференцию Changan Kazakhstan:
+          <p><span class="inv-lead-main">Приглашаем вас на ежегодную Летнюю дилерскую конференцию Changan Kazakhstan:</span>
              два дня деловой программы, общения, командных активностей и отдыха на берегу
              Каспийского моря.</p>
+          <p class="inv-dress"><b>Дресс-код:</b> Cocktail (коктейльный). Для мужчин: деловой костюм или пиджак с брюками.</p>
           <p>Будем рады видеть вас среди участников Summer Dealer Conference 2026.</p>
         </div>
         <div class="inv-divider"></div>
         <dl class="inv-rail">
           <div class="fact"><dt>Дата</dt><dd>20-22.08.2026</dd></div>
-          <div class="fact"><dt>Начало конференции</dt><dd>14:30, 20 августа</dd></div>
+          <div class="fact"><dt>Начало конференции</dt><dd>20 августа, 14:30</dd></div>
           <div class="fact"><dt>Место</dt><dd>Rixos Water World Aktau<br />Банкетный зал «Мангыстау»</dd></div>
         </dl>
       </div>
@@ -830,10 +836,10 @@
         <div class="day-rows">
           <div class="row"><span class="t">до 12:00</span><span class="l">Заезд участников</span></div>
           <div class="row"><span class="t">13:00-14:00</span><span class="l">Обед</span></div>
-          <div class="row"><span class="t">14:30-16:00</span><span class="l">Начало официальной конференции</span></div>
+           <div class="row"><span class="t">14:30-16:00</span><span class="l">Начало официальной части конференции</span></div>
           <div class="row"><span class="t">16:00-18:00</span><span class="l">Воркшопы</span></div>
           <div class="row"><span class="t">18:00-19:00</span><span class="l">Свободное время</span></div>
-          <div class="row"><span class="t">19:40-24:00</span><span class="l">Гала-ужин</span></div>
+           <div class="row"><span class="t">19:40-24:00</span><span class="l">Гала-ужин <span>· Дресс-код: Cocktail (коктейльный)</span></span></div>
             <div class="day-carousel" id="carousel">
               <button class="carousel-btn carousel-btn--prev" aria-label="Предыдущее">‹</button>
               <div class="carousel-track">
@@ -940,7 +946,7 @@
         <span class="marker-label">RIXOS WATER <br>WORLD AKTAU</span>
       </a>
       <div class="venue-card">
-        <p class="label">Место проведения</p>
+        <p class="label">Карта</p>
         <h2>Rixos Water World<br />Aktau</h2>
         <div class="horizon"></div>
         <div class="venue-addr">
