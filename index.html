@@ -622,10 +622,12 @@
       .hero-scrim-b { height: 75%; }
       
       .nav-links { display: none; }
-      .viewfinder { padding: .5rem .75rem; font-size: 10px; letter-spacing: 1px; }
-      .nav-inner { height: 56px; gap: 1.25rem; }
-      .brand img { height: 0.9rem; }
-      .brand img.secondary { height: 0.5rem; }
+      .nav-lang { display: flex; gap: .3rem; }
+      .viewfinder { padding: .45rem .6rem; font-size: 9px; letter-spacing: .5px; }
+      .nav-inner { height: 56px; gap: 0.5rem; }
+      .brand img { height: 0.8rem; }
+      .brand img.secondary { height: 0.42rem; }
+      .nav-lang-btn { font-size: .55rem; padding: .12rem .18rem; }
       
       .section-pad { padding: 4rem 0; }
       
@@ -803,6 +805,12 @@
       border-color: var(--gold);
       color: var(--gold);
       background: rgba(198,161,91,.08);
+    }
+
+    @media (max-width: 767px) {
+      .lang-overlay h2 { font-size: 1.4rem; letter-spacing: 1px; }
+      .lang-btn { padding: .65rem 1.25rem; font-size: .9rem; letter-spacing: .5px; }
+      .lang-btns { gap: .75rem; }
     }
   </style>
 </head>
