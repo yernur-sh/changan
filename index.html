@@ -764,67 +764,10 @@
     }
     .dot.active { background: #fff; }
 
-    /* ===== Language Selector ===== */
-    .lang-overlay {
-      position: fixed; inset: 0; z-index: 9999;
-      background: var(--night);
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      gap: 2rem;
-      transition: opacity .5s ease, visibility .5s ease;
-    }
-    .lang-overlay.hidden {
-      opacity: 0; visibility: hidden; pointer-events: none;
-    }
-    .lang-overlay h2 {
-      font-family: "NotoSans", var(--display);
-      font-weight: 600;
-      font-size: clamp(1.5rem, 4vw, 2.25rem);
-      letter-spacing: 1.5px;
-      color: var(--ink);
-      text-transform: uppercase;
-    }
-    .lang-btns {
-      display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center;
-    }
-    .lang-btn {
-      padding: .75rem 2rem;
-      background: transparent;
-      border: 1px solid var(--hairline);
-      border-radius: 2px;
-      color: var(--ink);
-      font-family: var(--body);
-      font-weight: 600;
-      font-size: 1rem;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: all .3s ease;
-    }
-    .lang-btn:hover {
-      border-color: var(--gold);
-      color: var(--gold);
-      background: rgba(198,161,91,.08);
-    }
-
-    @media (max-width: 767px) {
-      .lang-overlay h2 { font-size: 1.4rem; letter-spacing: 1px; }
-      .lang-btn { padding: .65rem 1.25rem; font-size: .9rem; letter-spacing: .5px; }
-      .lang-btns { gap: .75rem; }
-    }
+    .nav-lang-btn.active { color: var(--gold); }
   </style>
 </head>
 <body>
-
-  <!-- ===== Language Selector ===== -->
-  <div class="lang-overlay" id="langOverlay">
-    <h2>Select language / Тілді таңдаңыз / Выберите язык</h2>
-    <div class="lang-btns">
-      <button class="lang-btn" data-lang="ru">Русский</button>
-      <button class="lang-btn" data-lang="kz">Қазақша</button>
-      <button class="lang-btn" data-lang="en">English</button>
-    </div>
-  </div>
 
   <!-- ===== Nav ===== -->
   <header class="nav" id="nav">
@@ -1535,7 +1478,7 @@
       en: ["Dealership Director","Deputy Dealership Director","Sales Department Director","Sales Department Head","Sales Manager","Marketing Director","Marketing Manager","Technical Director","Service Department Head","Customer Service Specialist"]
     };
 
-    var currentLang = localStorage.getItem("conf_lang") || "ru";
+    var currentLang = localStorage.getItem("conf_lang") || "kz";
 
     function applyLanguage(lang) {
       currentLang = lang;
@@ -1609,14 +1552,6 @@
       });
     }
 
-    document.querySelectorAll(".lang-btn").forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        var lang = btn.getAttribute("data-lang");
-        applyLanguage(lang);
-        document.getElementById("langOverlay").classList.add("hidden");
-      });
-    });
-
     document.querySelectorAll(".nav-lang-btn").forEach(function (btn) {
       btn.addEventListener("click", function () {
         var lang = btn.getAttribute("data-lang");
@@ -1624,10 +1559,7 @@
       });
     });
 
-    if (localStorage.getItem("conf_lang")) {
-      applyLanguage(currentLang);
-      document.getElementById("langOverlay").classList.add("hidden");
-    }
+    applyLanguage(currentLang);
 
     var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
