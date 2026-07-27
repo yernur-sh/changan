@@ -1254,7 +1254,7 @@
         "reg.arrival_label": "Дата прилета",
         "reg.departure_label": "Дата вылета",
         "reg.comment_label": "Комментарий",
-        "reg.confirm_text": "Я подтверждаю участие в конференции",
+        "reg.confirm_text": "Я подтверждаю участие в конференции<br /><em class=\"field-error\" style=\"font-style:normal\">Подтвердите участие</em>",
         "reg.confirm_error": "Подтвердите участие",
         "reg.form_error": "Не удалось отправить заявку. Попробуйте еще раз или напишите вашему менеджеру Changan Kazakhstan.",
         "reg.submit": "Отправить заявку",
@@ -1360,7 +1360,7 @@
         "reg.arrival_label": "Ұшып келу уақыты",
         "reg.departure_label": "Ұшып кету уақыты",
         "reg.comment_label": "Ескертпе",
-        "reg.confirm_text": "Конференцияға қатысатынымды растаймын.",
+        "reg.confirm_text": "Конференцияға қатысатынымды растаймын.<br /><em class=\"field-error\" style=\"font-style:normal\">Қатысуды растаңыз</em>",
         "reg.confirm_error": "Қатысуды растаңыз",
         "reg.form_error": "Өтінімді жіберу мүмкін болмады. Қайтадан көріңіз немесе Changan Kazakhstan менеджеріне жазыңыз.",
         "reg.submit": "Өтінімді жіберу",
@@ -1466,7 +1466,7 @@
         "reg.arrival_label": "Arrival date",
         "reg.departure_label": "Departure date",
         "reg.comment_label": "Comment",
-        "reg.confirm_text": "I confirm my participation in the conference",
+        "reg.confirm_text": "I confirm my participation in the conference<br /><em class=\"field-error\" style=\"font-style:normal\">Confirm participation</em>",
         "reg.confirm_error": "Confirm participation",
         "reg.form_error": "Failed to send application. Please try again or contact your Changan Kazakhstan manager.",
         "reg.submit": "Submit application",
@@ -1626,13 +1626,6 @@
       var countSelect = document.getElementById("participantsCount");
       var container = document.getElementById("participantsContainer");
 
-      document.querySelectorAll(".date-wrap input").forEach(function (inp) {
-        function sync() { inp.closest(".date-wrap").classList.toggle("has-value", !!inp.value); }
-        inp.addEventListener("input", sync);
-        inp.addEventListener("change", sync);
-        sync();
-      });
-
       var POSITIONS = [
         "Директор ДЦ",
         "Заместитель директора ДЦ",
@@ -1676,8 +1669,20 @@
         );
       }
 
+      function readParticipants() {
+        var blocks = container.querySelectorAll(".participant-block");
+        var result = [];
+        blocks.forEach(function (block) {
+          result.push({
+            firstName: block.querySelector('[data-p="firstName"]').value.trim(),
+            lastName: block.querySelector('[data-p="lastName"]').value.trim(),
+            position: block.querySelector('[data-p="position"]').value
+          });
+        });
+        return result;
+      }
+
       function renderParticipants(count) {
-        // Сохраняем уже введенные значения при изменении количества
         var existing = readParticipants();
         var html = "";
         for (var i = 1; i <= count; i++) html += participantBlock(i);
@@ -1695,24 +1700,6 @@
         translateParticipants(currentLang);
         translatePositions(currentLang);
       }
-
-      function readParticipants() {
-        var blocks = container.querySelectorAll(".participant-block");
-        var result = [];
-        blocks.forEach(function (block) {
-          result.push({
-            firstName: block.querySelector('[data-p="firstName"]').value.trim(),
-            lastName: block.querySelector('[data-p="lastName"]').value.trim(),
-            position: block.querySelector('[data-p="position"]').value
-          });
-        });
-        return result;
-      }
-
-      countSelect.addEventListener("change", function () {
-        renderParticipants(parseInt(countSelect.value, 10));
-      });
-      renderParticipants(parseInt(countSelect.value, 10));
 
       function setErr(input, on) {
         input.classList.toggle("err", on);
@@ -1764,7 +1751,7 @@
         };
         fetch(SHEETS_WEBHOOK_URL, {
           method: "POST",
-          mode: "no-cors", // Apps Script не отдает CORS-заголовки; запись все равно происходит
+          mode: "no-cors",
           headers: { "Content-Type": "text/plain;charset=utf-8" },
           body: JSON.stringify(payload)
         }).then(function () {
@@ -1778,6 +1765,21 @@
           btn.disabled = false;
           label.textContent = "Отправить заявку";
         });
+      });
+
+      countSelect.addEventListener("change", function () {
+        renderParticipants(parseInt(countSelect.value, 10));
+      });
+      renderParticipants(parseInt(countSelect.value, 10));
+
+      document.querySelectorAll(".date-wrap input").forEach(function (inp) {
+        function sync() {
+          var wrap = inp.closest(".date-wrap");
+          if (wrap) wrap.classList.toggle("has-value", !!inp.value);
+        }
+        inp.addEventListener("input", sync);
+        inp.addEventListener("change", sync);
+        sync();
       });
     })();
 
