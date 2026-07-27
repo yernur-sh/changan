@@ -761,7 +761,22 @@
     }
     .dot.active { background: #fff; }
 
-    .nav-lang-btn.active { color: var(--gold); }
+    .date-wrap { position: relative; }
+.date-hint {
+  position: absolute;
+  left: 0; top: 50%; transform: translateY(-50%);
+  pointer-events: none;
+  color: rgba(147,163,180,.55);
+  font-family: var(--body);
+  font-size: .95rem;
+  transition: opacity .15s ease;
+}
+.date-wrap input.field { position: relative; z-index: 1; background: transparent; }
+.date-wrap input.field[type="date"] { color: transparent; }
+.date-wrap.has-value input.field[type="date"] { color: var(--ink); }
+.date-wrap.has-value .date-hint { opacity: 0; }
+
+.nav-lang-btn.active { color: var(--gold); }
   </style>
 </head>
 <body>
@@ -1056,10 +1071,16 @@
             </select>
           </label>
           <label class="f"><span data-i18n="reg.arrival_label">Дата прилета</span>
-            <input class="field" type="date" name="arrivalDate" />
+            <div class="date-wrap">
+              <input class="field" type="date" name="arrivalDate" />
+              <span class="date-hint" data-i18n="reg.date_placeholder">дд.мм.гггг</span>
+            </div>
           </label>
           <label class="f"><span data-i18n="reg.departure_label">Дата вылета</span>
-            <input class="field" type="date" name="departureDate" />
+            <div class="date-wrap">
+              <input class="field" type="date" name="departureDate" />
+              <span class="date-hint" data-i18n="reg.date_placeholder">дд.мм.гггг</span>
+            </div>
           </label>
         </div>
 
@@ -1238,6 +1259,7 @@
         "reg.form_error": "Не удалось отправить заявку. Попробуйте еще раз или напишите вашему менеджеру Changan Kazakhstan.",
         "reg.submit": "Отправить заявку",
         "reg.privacy": "Нажимая «Отправить заявку», вы соглашаетесь на обработку персональных данных организаторами конференции.",
+        "reg.date_placeholder": "дд.мм.гггг",
         "reg.success_title": "Заявка принята",
         "reg.success_text": "Спасибо! Ваши данные переданы организаторам. До встречи 20 августа в Актау.",
         "part.title": "Участник",
@@ -1343,6 +1365,7 @@
         "reg.form_error": "Өтінімді жіберу мүмкін болмады. Қайтадан көріңіз немесе Changan Kazakhstan менеджеріне жазыңыз.",
         "reg.submit": "Өтінімді жіберу",
         "reg.privacy": "«Өтінімді жіберу» түймесін басу арқылы конференцияны ұйымдастырушылардың жеке деректеріңізді өңдеуіне келісім бересіз.",
+        "reg.date_placeholder": "кк.аа.жжжж",
         "reg.success_title": "Өтінім қабылданды",
         "reg.success_text": "Рахмет! Сіздің деректеріңіз ұйымдастырушыларға жіберілді. 20 тамызда Ақтауда кездесеміз.",
         "part.title": "Қатысушы",
@@ -1448,6 +1471,7 @@
         "reg.form_error": "Failed to send application. Please try again or contact your Changan Kazakhstan manager.",
         "reg.submit": "Submit application",
         "reg.privacy": "By clicking \"Submit application\", you agree to the processing of personal data by the conference organizers.",
+        "reg.date_placeholder": "dd.mm.yyyy",
         "reg.success_title": "Application accepted",
         "reg.success_text": "Thank you! Your data has been sent to the organizers. See you on August 20 in Aktau.",
         "part.title": "Participant",
@@ -1470,7 +1494,7 @@
 
     var POSITIONS_TRANSLATIONS = {
       ru: ["Директор ДЦ","Заместитель директора ДЦ","Директор Департамента продаж","Руководитель отдела продаж","Менеджер по продажам","Директор по маркетингу","Менеджер по маркетингу","Технический директор","Руководитель отдела сервиса","СПК"],
-      kz: ["ДЦ директоры","ДЦ директорының орынбасары","Сату департаментінің директоры","Сату бөлімінің басшысы","Сату менеджері","Маркетинг директоры","Маркетинг менеджері","Техникалық директор","Сервис бөлімінің басшысы","СПК"],
+      kz: ["ДО директоры","ДО директорының орынбасары","Сату департаментінің директоры","Сату бөлімінің басшысы","Сату менеджері","Маркетинг директоры","Маркетинг менеджері","Техникалық директор","Сервис бөлімінің басшысы","СПК"],
       en: ["Dealership Director","Deputy Dealership Director","Sales Department Director","Sales Department Head","Sales Manager","Marketing Director","Marketing Manager","Technical Director","Service Department Head","Customer Service Specialist"]
     };
 
@@ -1601,6 +1625,13 @@
       var formError = document.getElementById("formError");
       var countSelect = document.getElementById("participantsCount");
       var container = document.getElementById("participantsContainer");
+
+      document.querySelectorAll(".date-wrap input").forEach(function (inp) {
+        function sync() { inp.closest(".date-wrap").classList.toggle("has-value", !!inp.value); }
+        inp.addEventListener("input", sync);
+        inp.addEventListener("change", sync);
+        sync();
+      });
 
       var POSITIONS = [
         "Директор ДЦ",
