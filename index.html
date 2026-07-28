@@ -701,6 +701,82 @@
 .date-wrap.has-value .date-hint { opacity: 0; }
 
 .nav-lang-btn.active { color: var(--gold); }
+
+.day-carousel {
+  position: relative;
+  width: 100%;
+  max-width: 28rem;
+  overflow: hidden;
+  border-radius: 12px;
+  margin-top: 1rem;
+}
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+.carousel-slide {
+  min-width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.carousel-slide img {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  display: block;
+}
+.day-carousel .day-photos {
+  width: 100%;
+  margin-top: 0;
+}
+.day-carousel .day-photos figure {
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+.slide-caption {
+  padding: .5rem .75rem .5rem 0;
+  background: var(--panel2);
+  color: #fff;
+  font-size: .9rem;
+  text-align: left;
+}
+.carousel-btn {
+  position: absolute;
+  top: 35%;
+  transform: translateY(-50%);
+  background: rgba(8,21,34,.6);
+  color: var(--ink);
+  border: 0;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .3s ease;
+}
+.carousel-btn:hover { background: rgba(8,21,34,.85); }
+.carousel-btn--prev { left: .5rem; }
+.carousel-btn--next { right: .5rem; }
+.dots {
+  position: absolute;
+  bottom: .20rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: .5rem;
+}
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.4);
+  cursor: pointer;
+}
+.dot.active { background: #fff; }
   </style>
 </head>
 <body>
@@ -790,6 +866,7 @@
         </div>
         <div class="day-rows">
           <div class="row"><span class="t">14:00</span><span class="l" data-i18n="prog.checkin">Check-in</span></div>
+          <div class="row"><span class="t">15:00–19:00</span><span class="l" data-i18n="prog.free_time">Свободное время</span></div>
           <div class="row"><span class="t">19:00–22:00</span><span class="l" data-i18n="prog.party">Pre Party <span>· DJ Mado</span></span></div>
         </div>
       </article>
@@ -806,6 +883,29 @@
           <div class="row"><span class="t">14:00–16:00</span><span class="l" data-i18n="prog.workshops">Workshops</span></div>
           <div class="row"><span class="t">16:00–19:00</span><span class="l" data-i18n="prog.free_time">Free time</span></div>
           <div class="row"><span class="t">19:40–24:00</span><span class="l" data-i18n="prog.gala">Gala dinner <span>· Dress Code: Cocktail/Business Suit</span></span></div>
+          <div class="day-carousel" id="carousel">
+            <button class="carousel-btn carousel-btn--prev" aria-label="Previous" data-i18n-aria="carousel.prev">‹</button>
+            <div class="carousel-track">
+              <div class="carousel-slide">
+                <figure><img loading="lazy" src="assets/1.png" alt="Зал Мангыстау" data-i18n-alt="carousel.img1_alt" /></figure>
+                <p class="slide-caption" data-i18n="carousel.slide1">Зал «Мангыстау» — Маркетинг</p>
+              </div>
+              <div class="carousel-slide">
+                <figure><img loading="lazy" src="assets/2.png" alt="Зал Алматы" data-i18n-alt="carousel.img2_alt" /></figure>
+                <p class="slide-caption" data-i18n="carousel.slide2">Зал «Алматы» — Продажи</p>
+              </div>
+              <div class="carousel-slide">
+                <figure><img loading="lazy" src="assets/3.png" alt="Зал Астана" data-i18n-alt="carousel.img3_alt" /></figure>
+                <p class="slide-caption" data-i18n="carousel.slide3">Зал «Астана» — Aftersales Department</p>
+              </div>
+              <div class="carousel-slide">
+                <figure><img loading="lazy" src="assets/4.png" alt="Зал Бурабай" data-i18n-alt="carousel.img4_alt" /></figure>
+                <p class="slide-caption" data-i18n="carousel.slide4">Зал «Бурабай» — СПК</p>
+              </div>
+            </div>
+            <button class="carousel-btn carousel-btn--next" aria-label="Next" data-i18n-aria="carousel.next">›</button>
+            <div class="dots" id="dots20"></div>
+          </div>
         </div>
       </article>
 
@@ -817,6 +917,10 @@
         <div class="day-rows">
           <div class="row"><span class="t">08:00–10:00</span><span class="l" data-i18n="prog.breakfast">Breakfast</span></div>
           <div class="row"><span class="t">10:00</span><span class="l" data-i18n="prog.free_time3">Free time <span>· swimming, activities</span></span></div>
+          <div class="day-photos two">
+            <figure><img loading="lazy" src="assets/suret1.jpg" alt="Пляжный тимбилдинг на закате" data-i18n-alt="day2.img1_alt" /></figure>
+            <figure><img loading="lazy" src="assets/suret2.png" alt="Вечерняя afterparty у бассейна" data-i18n-alt="day2.img2_alt" /></figure>
+          </div>
           <div class="row"><span class="t" data-i18n="prog.time_until_15">Until 15:00</span><span class="l" data-i18n="prog.checkout">Check-out</span></div>
         </div>
       </article>
@@ -1082,7 +1186,7 @@
         "inv.start_label": "Начало конференции",
         "inv.venue_label": "Место",
         "inv.date_value": "19-21.08.2026",
-        "inv.start_value": "19 августа, 19:00",
+        "inv.start_value": "20 августа, 11:00",
         "inv.venue_value": "Rixos Water World Aktau<br />Банкетный зал «Мангыстау»",
         "prog.title": "Программа мероприятия",
         "prog.day1_cap": "августа · день 1",
@@ -1091,12 +1195,12 @@
         "prog.checkin": "Заезд участников",
         "prog.time_until_noon": "до 12:00",
         "prog.lunch": "Обед",
-        "prog.conf_start": "Начало официальной части конференции",
+        "prog.conf_start": "Начало официальной части конференции <span>· Дресс-код: деловой</span>",
         "prog.workshops": "Воркшопы",
         "prog.free_time": "Свободное время",
         "prog.gala": "Гала ужин <span>· Дресс-код: Cocktail/Деловой костюм</span>",
         "prog.party": "Pre Party <span>· DJ Mado</span>",
-        "prog.free_time3": "Свободное время <span>· плавание, активности на выбор</span>",
+        "prog.free_time3": "Свободное время",
         "prog.time_until_15": "до 12:00",
         "prog.breakfast": "Завтрак",
         "prog.gathering": "Сбор гостей",
@@ -1175,7 +1279,7 @@
         "nav.about": "Конференция туралы",
         "nav.program": "Бағдарлама",
         "nav.transport": "Трансфер",
-        "nav.venue": "Орын",
+        "nav.venue": "Карта",
         "nav.cta": "Қатысуды растау",
         "hero.title": "Summer Dealer<br />Conference 2026",
         "hero.meta": "19-21 тамыз 2026 · Rixos Water World Aktau · Ақтау қ.",
@@ -1190,7 +1294,7 @@
         "inv.start_label": "Конференция басталуы",
         "inv.venue_label": "Орын",
         "inv.date_value": "19-21.08.2026",
-        "inv.start_value": "19 тамыз, 19:00",
+        "inv.start_value": "20 тамыз, 11:00",
         "inv.venue_value": "Rixos Water World Aktau<br />«Маңғыстау» банкет залы",
         "prog.title": "Іс-шара бағдарламасы",
         "prog.day1_cap": "Тамыз · 1 күн",
@@ -1199,12 +1303,12 @@
         "prog.checkin": "Қатысушылардың келуі",
         "prog.time_until_noon": "сағат 12:00‑ге дейін",
         "prog.lunch": "Түскі ас",
-        "prog.conf_start": "Конференцияның ресми бөлімінің ашылуы",
+        "prog.conf_start": "Конференцияның ресми бөлімінің ашылуы <span>· Дресс-код: іскерлік</span>",
         "prog.workshops": "Воркшоптар",
         "prog.free_time": "Бос уақыт",
         "prog.gala": "Гала кешкі ас <span>· Дресс-код: Cocktail/Іскерлік костюм</span>",
         "prog.party": "Pre Party <span>· DJ Mado</span>",
-        "prog.free_time3": "Бос уақыт <span>· жүзу, таңдау бойынша белсенділіктер</span>",
+        "prog.free_time3": "Бос уақыт",
         "prog.time_until_15": "12:00-ге дейін",
         "prog.breakfast": "Таңғы ас",
         "prog.gathering": "Қонақтардың жиналуы",
@@ -1298,7 +1402,7 @@
         "inv.start_label": "Conference start",
         "inv.venue_label": "Venue",
         "inv.date_value": "Aug 19-21, 2026",
-        "inv.start_value": "August 19, 19:00",
+        "inv.start_value": "August 20, 11:00",
         "inv.venue_value": "Rixos Water World Aktau<br />«Mangystau» banquet hall",
         "prog.title": "Event Program",
         "prog.day1_cap": "August · Day 1",
@@ -1307,12 +1411,12 @@
         "prog.checkin": "Check-in",
         "prog.time_until_noon": "until 12:00",
         "prog.lunch": "Lunch",
-        "prog.conf_start": "Start of official conference part",
+        "prog.conf_start": "Start of official conference part <span>· Dress Code: business</span>",
         "prog.workshops": "Workshops",
         "prog.free_time": "Free time",
         "prog.gala": "Gala dinner <span>· Dress Code: Cocktail/Business Suit</span>",
         "prog.party": "Pre Party <span>· DJ Mado</span>",
-        "prog.free_time3": "Free time <span>· swimming, activities</span>",
+        "prog.free_time3": "Free time",
         "prog.time_until_15": "Until 12:00",
         "prog.breakfast": "Breakfast",
         "prog.gathering": "Guest gathering",
@@ -1678,6 +1782,41 @@
         inp.addEventListener("change", sync);
         sync();
       });
+    })();
+
+    (function () {
+      var carousel = document.getElementById("carousel");
+      if (!carousel) return;
+      var track = carousel.querySelector(".carousel-track");
+      var slides = carousel.querySelectorAll(".carousel-slide");
+      var dotsContainer = carousel.querySelector(".dots");
+      var prevBtn = carousel.querySelector(".carousel-btn--prev");
+      var nextBtn = carousel.querySelector(".carousel-btn--next");
+      var index = 0;
+
+      slides.forEach(function (_, i) {
+        var dot = document.createElement("div");
+        dot.className = "dot" + (i === 0 ? " active" : "");
+        dot.addEventListener("click", function () { goTo(i); });
+        dotsContainer.appendChild(dot);
+      });
+
+      function update() {
+        track.style.transform = "translateX(-" + (index * 100) + "%)";
+        carousel.querySelectorAll(".dot").forEach(function (d, i) {
+          d.classList.toggle("active", i === index);
+        });
+      }
+
+      function goTo(i) {
+        index = (i + slides.length) % slides.length;
+        update();
+      }
+
+      if (nextBtn) nextBtn.addEventListener("click", function () { goTo(index + 1); });
+      if (prevBtn) prevBtn.addEventListener("click", function () { goTo(index - 1); });
+
+      setInterval(function () { goTo(index + 1); }, 5000);
     })();
 
    </script>
