@@ -156,6 +156,16 @@
     }
     .nav-lang-btn:hover { color: var(--ink); }
     .nav-lang-btn.active { color: var(--gold); }
+    .nav-whatsapp { display: none; align-items: center; gap: .4rem; }
+    @media (min-width: 768px) { .nav-whatsapp { display: flex; } }
+    .nav-whatsapp a {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 30px; height: 30px; border-radius: 50%;
+      background: #25D366; color: #fff;
+      transition: transform .2s ease, background .2s ease;
+    }
+    .nav-whatsapp a:hover { background: #20bd5a; transform: scale(1.1); }
+    .nav-whatsapp svg { width: 16px; height: 16px; }
 
     /* ---------- Hero ---------- */
     .hero { position: relative; height: 135dvh; }
@@ -234,7 +244,44 @@
     .hero-cta .arrow { font-style: normal; color: inherit; transition: transform .5s ease; display: inline-block; }
     .hero-cta:hover .arrow { transform: translateX(4px); }
     .hero-cta .underline { display: none; }
+    .hero-whatsapp-anchor {
+      position: absolute;
+      bottom: 2rem;
+      left: 0;
+      right: 34.7em;
+      display: flex;
+      justify-content: center;
+      pointer-events: none;
+    }
+    .hero-whatsapp-card {
+      display: flex; align-items: center; gap: 1rem;
+      padding: .75rem 1rem;
+      background: rgba(12,29,48,.65);
+      border: 1px solid rgba(198,161,91,.25);
+      border-radius: 4px;
+      max-width: 520px;
+      width: 100%;
+      pointer-events: auto;
+      animation: rise .9s cubic-bezier(.22,1,.36,1) both;
+      animation-delay: .7s;
+    }
+    .hero-whatsapp-card .hero-info { animation: none; flex: 1; min-width: 0; }
+    .hero-whatsapp-card .hero-whatsapp { display: flex; gap: .6rem; flex-shrink: 0; }
+    .hero-whatsapp-card .hero-whatsapp a {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 36px; height: 36px; border-radius: 6px;
+      background: #25D366; color: #fff;
+      transition: transform .2s ease, background .2s ease;
+    }
+    .hero-whatsapp-card .hero-whatsapp a:hover { background: #20bd5a; transform: scale(1.1); }
+    .hero-whatsapp-card .hero-whatsapp svg { width: 18px; height: 18px; }
+    .hero-info p { margin: 0; font-family: var(--body); font-weight: 400; font-size: clamp(.7rem, 1.2vw, .85rem); line-height: 1.55; color: var(--ink); letter-spacing: .02em; }
+    .hero-info p + p { margin-top: .5rem; }
+    .hero-info strong { color: var(--gold); font-weight: 600; }
     .rise { animation: rise .9s cubic-bezier(.22,1,.36,1) both; }
+    @media (max-width: 767px) {
+      .hero-whatsapp-card { flex-direction: column; align-items: flex-start; }
+    }
     @keyframes rise { from { transform: translateY(26px); } to { transform: translateY(0); } }
 
     /* ---------- Sections ---------- */
@@ -825,6 +872,26 @@
         </div>
       </div>
     </div>
+    <div class="hero-whatsapp-anchor">
+      <div class="hero-whatsapp-card rise" style="animation-delay:.7s">
+        <div class="hero-info">
+          <p><strong data-i18n="hero.info.title">Будьте в курсе событий</strong></p>
+          <p data-i18n="hero.info.body">Во время Summer Dealer Conference 2026 мы будем использовать два WhatsApp-канала:</p>
+          <p><strong data-i18n="hero.info.ch1_title">Summer Dealer Conference 2026</strong> — <span data-i18n="hero.info.ch1_desc">официальный канал конференции: расписание, объявления и возможные изменения в программе.</span></p>
+          <p><strong data-i18n="hero.info.ch2_title">Rixos Water World Aktau</strong> — <span data-i18n="hero.info.ch2_desc">новости, мероприятия и развлечения отеля.</span></p>
+        </div>
+        <div class="hero-whatsapp">
+              <a href="https://whatsapp.com/channel/0029Vb7SuGO2ER6h2rrmBw2L" target="_blank" rel="noopener" aria-label="WhatsApp Channel 1">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.263.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              </a>
+              <a href="https://whatsapp.com/channel/0029Vb8wLZSHrDZl0xAjnE2a" target="_blank" rel="noopener" aria-label="WhatsApp Channel 2">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.263.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- ===== Invitation ===== -->
@@ -880,10 +947,12 @@
         </div>
         <div class="day-rows">
           <div class="row"><span class="t">07:30–10:30</span><span class="l" data-i18n="prog.breakfast">Breakfast</span></div>
-          <div class="row"><span class="t">11:00–12:30</span><span class="l" data-i18n="prog.conf_start">Conference official start</span></div>
-          <div class="row"><span class="t">12:30–14:00</span><span class="l" data-i18n="prog.lunch">Lunch</span></div>
-          <div class="row"><span class="t">14:00–16:00</span><span class="l" data-i18n="prog.workshops">Workshops</span></div>
-          <div class="row"><span class="t">16:00–19:00</span><span class="l" data-i18n="prog.free_time">Free time</span></div>
+          <div class="row"><span class="t">10:30–14:00</span><span class="l" data-i18n="prog.free_time_morning">Free until lunch</span></div>
+          <div class="row"><span class="t">14:00–15:30</span><span class="l" data-i18n="prog.conf_start">Conference official start</span></div>
+          <div class="row"><span class="t">15:30–16:00</span><span class="l" data-i18n="prog.coffee_break">Coffee break</span></div>
+          <div class="row"><span class="t">16:00–18:00</span><span class="l" data-i18n="prog.workshops">Workshops</span></div>
+          <div class="row"><span class="t">18:00–19:00</span><span class="l" data-i18n="prog.free_time">Free time</span></div>
+          <div class="row"><span class="t">19:00–19:40</span><span class="l" data-i18n="prog.gathering">Guest gathering</span></div>
            <div class="row"><span class="t">19:40–24:00</span><span class="l" data-i18n="prog.gala">Gala dinner <span>· Dress Code: Summer Cocktail</span></span></div>
           <div class="day-carousel" id="carousel">
             <button class="carousel-btn carousel-btn--prev" aria-label="Previous" data-i18n-aria="carousel.prev">‹</button>
@@ -1181,6 +1250,12 @@
         "hero.meta": "19-21 августа 2026 · Rixos Water World Aktau · г. Актау",
         "hero.cta": "Подтвердить участие <span class=\"arrow\">→</span>",
         "hero.img_alt": "Rixos Water World Aktau на берегу Каспийского моря ночью",
+        "hero.info.title": "Будьте в курсе событий",
+        "hero.info.body": "Во время Summer Dealer Conference 2026 мы будем использовать два WhatsApp-канала:",
+        "hero.info.ch1_title": "Summer Dealer Conference 2026",
+        "hero.info.ch1_desc": "официальный канал конференции: расписание, объявления и возможные изменения в программе.",
+        "hero.info.ch2_title": "Rixos Water World Aktau",
+        "hero.info.ch2_desc": "новости, мероприятия и развлечения отеля.",
         "inv.greeting": "Уважаемые партнеры!",
 "inv.lead_main": "Приглашаем вас на ежегодную Летнюю дилерскую конференцию Changan Kazakhstan:",
         "inv.lead_sub": "насыщенная деловая программа, живое общение с коллегами и отдых на берегу Каспийского моря.",
@@ -1207,6 +1282,8 @@
         "prog.time_until_15": "до 12:00",
         "prog.breakfast": "Завтрак",
         "prog.gathering": "Сбор гостей",
+        "prog.free_time_morning": "До обеда свободно",
+        "prog.coffee_break": "Кофе-брейк",
         "prog.teambuilding": "Спортивный тимбилдинг <span>· с Валиханом Т.</span>",
         "prog.lunch2": "Обед",
         "prog.free_time2": "Свободное время <span>· плавание, активности на выбор</span>",
@@ -1288,6 +1365,12 @@
         "hero.meta": "19-21 тамыз 2026 · Rixos Water World Aktau · Ақтау қ.",
         "hero.cta": "Қатысуды растау <span class=\"arrow\">→</span>",
         "hero.img_alt": "Rixos Water World Aktau Каспий теңізі жағасында түнде",
+        "hero.info.title": "Оқиғалармен таныс болыңыз",
+        "hero.info.body": "Summer Dealer Conference 2026 барысында біз екі WhatsApp-арнасын қолданатын боламыз:",
+        "hero.info.ch1_title": "Summer Dealer Conference 2026",
+        "hero.info.ch1_desc": "конференцияның ресми арнасы: кесте, хабарландырулар және бағдарламадағы мүмкін өзгерістер.",
+        "hero.info.ch2_title": "Rixos Water World Aktau",
+        "hero.info.ch2_desc": "қонақ үйдің жаңалықтары, іс-шаралары және ойын-сауықтары.",
         "inv.greeting": "Құрметті серіктестер!",
         "inv.lead_main": "Сізді Changan Kazakhstan компаниясының жыл сайынғы Жазғы дилерлік конференциясына шақырамыз:",
         "inv.lead_sub": "іскерлік бағдарлама, әріптестермен еркін тілдесу және Каспий теңізінің жағасындағы демалыс күтіп тұр.",
@@ -1315,6 +1398,8 @@
         "prog.time_until_15": "12:00-ге дейін",
         "prog.breakfast": "Таңғы ас",
         "prog.gathering": "Қонақтардың жиналуы",
+        "prog.free_time_morning": "Түскі асқа дейін бос",
+        "prog.coffee_break": "Кофе-брейк",
         "prog.teambuilding": "Спорттық тимбилдинг <span>· Тен Валиханмен бірге</span>",
         "prog.lunch2": "Түскі ас",
         "prog.free_time2": "Бос уақыт <span>· жүзу және таңдау бойынша белсенділіктер</span>",
@@ -1396,6 +1481,12 @@
         "hero.meta": "August 19-21, 2026 · Rixos Water World Aktau · Aktau",
         "hero.cta": "RSVP <span class=\"arrow\">→</span>",
         "hero.img_alt": "Rixos Water World Aktau at night on the Caspian Sea coast",
+        "hero.info.title": "Stay informed",
+        "hero.info.body": "During Summer Dealer Conference 2026 we will use two WhatsApp channels:",
+        "hero.info.ch1_title": "Summer Dealer Conference 2026",
+        "hero.info.ch1_desc": "the official conference channel: schedule, announcements and possible program changes.",
+        "hero.info.ch2_title": "Rixos Water World Aktau",
+        "hero.info.ch2_desc": "hotel news, events and entertainment.",
         "inv.greeting": "Dear partners!",
         "inv.lead_main": "You are invited to the annual Summer Dealer Conference of Changan Kazakhstan:",
         "inv.lead_sub": "a rich business program, networking with colleagues, and rest on the Caspian Sea coast.",
@@ -1423,6 +1514,8 @@
         "prog.time_until_15": "Until 12:00",
         "prog.breakfast": "Breakfast",
         "prog.gathering": "Guest gathering",
+        "prog.free_time_morning": "Free until lunch",
+        "prog.coffee_break": "Coffee break",
         "prog.teambuilding": "Sports teambuilding <span>· with Valikhan T.</span>",
         "prog.lunch2": "Lunch",
         "prog.free_time2": "Free time <span>· swimming, activities of choice</span>",
