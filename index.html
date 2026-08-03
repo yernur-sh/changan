@@ -278,7 +278,7 @@
       white-space: nowrap;
     }
     .hero-link:hover { background: #e0842c; transform: translateY(-1px); }
-    .hero-info p { margin: 0; font-family: var(--body); font-weight: 400; font-size: clamp(.7rem, 1.2vw, .85rem); line-height: 1.55; color: var(--ink); letter-spacing: .02em; display: flex; justify-content: space-between; align-items: center; gap: .75rem; }
+    .hero-info p { margin: 0; font-family: var(--body); font-weight: 400; font-size: clamp(.7rem, 1.2vw, .85rem); line-height: 1.55; color: var(--ink); letter-spacing: .02em; display: grid; grid-template-columns: 1fr auto; gap: .75rem; align-items: center; }
     .hero-info p + p { margin-top: .5rem; }
     .hero-info strong { color: var(--gold); font-weight: 600; }
     .rise { animation: rise .9s cubic-bezier(.22,1,.36,1) both; }
@@ -880,8 +880,8 @@
           <div class="hero-info">
             <p><strong data-i18n="hero.info.title">Будьте в курсе событий</strong></p>
             <p data-i18n="hero.info.body">Во время Summer Dealer Conference 2026 мы будем использовать два WhatsApp-канала:</p>
-            <p><strong data-i18n="hero.info.ch1_title">Summer Dealer Conference 2026</strong> — <span data-i18n="hero.info.ch1_desc">официальный канал конференции: расписание, объявления и возможные изменения в программе.</span> <a href="https://whatsapp.com/channel/0029Vb8wLZSHrDZl0xAjnE2a" target="_blank" rel="noopener" class="hero-link" data-i18n="hero.info.ch1_link">CHANNEL-CHANGAN</a></p>
-            <p><strong data-i18n="hero.info.ch2_title">Rixos Water World Aktau</strong> — <span data-i18n="hero.info.ch2_desc">новости, мероприятия и развлечения отеля.</span> <a href="https://whatsapp.com/channel/0029Vb7SuGO2ER6h2rrmBw2L" target="_blank" rel="noopener" class="hero-link" data-i18n="hero.info.ch2_link">CHANNEL-RIXOS</a></p>
+            <p><span class="hero-info-text"><strong data-i18n="hero.info.ch1_title">Summer Dealer Conference 2026</strong> — <span data-i18n="hero.info.ch1_desc">официальный канал конференции: расписание, объявления и возможные изменения в программе.</span></span> <a href="https://whatsapp.com/channel/0029Vb8wLZSHrDZl0xAjnE2a" target="_blank" rel="noopener" class="hero-link" data-i18n="hero.info.ch1_link">CHANNEL-CHANGAN</a></p>
+            <p><span class="hero-info-text"><strong data-i18n="hero.info.ch2_title">Rixos Water World Aktau</strong> — <span data-i18n="hero.info.ch2_desc">новости, мероприятия и развлечения отеля.</span></span> <a href="https://whatsapp.com/channel/0029Vb7SuGO2ER6h2rrmBw2L" target="_blank" rel="noopener" class="hero-link" data-i18n="hero.info.ch2_link">CHANNEL-RIXOS</a></p>
           </div>
         </div>
       </div>
@@ -1260,7 +1260,7 @@
         "inv.start_label": "Начало конференции",
         "inv.venue_label": "Место",
         "inv.date_value": "19-21.08.2026",
-        "inv.start_value": "20 августа, 11:00",
+        "inv.start_value": "20 августа, 14:00",
         "inv.venue_value": "Rixos Water World Aktau<br />Банкетный зал «Мангыстау»",
         "prog.title": "Программа мероприятия",
         "prog.day1_cap": "августа · день 1",
@@ -1378,7 +1378,7 @@
         "inv.start_label": "Конференция басталуы",
         "inv.venue_label": "Орын",
         "inv.date_value": "19-21.08.2026",
-        "inv.start_value": "20 тамыз, 11:00",
+        "inv.start_value": "20 тамыз, 14:00",
         "inv.venue_value": "Rixos Water World Aktau<br />«Маңғыстау» банкет залы",
         "prog.title": "Іс-шара бағдарламасы",
         "prog.day1_cap": "Тамыз · 1 күн",
@@ -1496,7 +1496,7 @@
         "inv.start_label": "Conference start",
         "inv.venue_label": "Venue",
         "inv.date_value": "Aug 19-21, 2026",
-        "inv.start_value": "August 20, 11:00",
+        "inv.start_value": "August 20, 14:00",
         "inv.venue_value": "Rixos Water World Aktau<br />«Mangystau» banquet hall",
         "prog.title": "Event Program",
         "prog.day1_cap": "August · Day 1",
